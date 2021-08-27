@@ -1,7 +1,5 @@
 package kiosk.mvc.model.dto;
 
-import java.util.List;
-
 public class Product {
 	private String productCode; //상품코드
 	private String productName; //상품 이름
@@ -12,7 +10,7 @@ public class Product {
 	private boolean isBundle; //세트 체크
 	
 	private Category category; //카테고리
-	private List<Bundle> bundleList;
+	private Bundle bundle; //세트
 	
 	public Product() {}
 	public Product(String productCode, String productName, int productPrice, String productDetails, String productImage,
@@ -26,9 +24,9 @@ public class Product {
 		this.isBundle = isBundle;
 	}
 	public Product(String productCode, String productName, int productPrice, String productDetails, String productImage,
-			String productOptions, boolean isBundle, List<Bundle> bundleList) {
+			String productOptions, boolean isBundle, Category category) {
 		this(productCode, productName, productPrice, productDetails, productImage, productOptions, isBundle);
-		this.bundleList = bundleList;
+		this.category = category;
 	}
 	
 	public String getProductCode() {
@@ -78,19 +76,18 @@ public class Product {
 	}
 	public void setCategory(Category category) {
 		this.category = category;
+	}	
+	public Bundle getBundle() {
+		return bundle;
 	}
-	public List<Bundle> getBundleList() {
-		return bundleList;
-	}
-	public void setBundleList(List<Bundle> bundleList) {
-		this.bundleList = bundleList;
+	public void setBundle(Bundle bundle) {
+		this.bundle = bundle;
 	}
 	
 	@Override
 	public String toString() {
 		return "Product [productCode=" + productCode + ", productName=" + productName + ", productPrice=" + productPrice
 				+ ", productDetails=" + productDetails + ", productImage=" + productImage + ", productOptions="
-				+ productOptions + ", isBundle=" + isBundle + ", category=" + category + ", bundleList=" + bundleList
-				+ "]";
+				+ productOptions + ", isBundle=" + isBundle + ", category=" + category + "]";
 	}	
 }

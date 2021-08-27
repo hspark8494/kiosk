@@ -1,5 +1,7 @@
 package kiosk.mvc.model.dto;
 
+import java.util.List;
+
 public class Bundle {
 	private String bundleCode; //세트 코드
 	private String bundleName; //세트 이름
@@ -7,7 +9,7 @@ public class Bundle {
 	private int bundlePrice; //세트 가격
 	private String bundleImage; //세트 이미지 URL
 	
-	private Product product;
+	private List<Product> productList; //상품 리스트
 
 	public Bundle() {}
 	public Bundle(String bundleCode, String bundleName, String bundleDetails, int bundlePrice, String bundleImage) {
@@ -16,10 +18,6 @@ public class Bundle {
 		this.bundleDetails = bundleDetails;
 		this.bundlePrice = bundlePrice;
 		this.bundleImage = bundleImage;
-	}
-	public Bundle(String bundleCode, String bundleName, String bundleDetails, int bundlePrice, String bundleImage, Product product) {
-		this(bundleCode, bundleName, bundleDetails, bundlePrice, bundleImage);
-		this.product = product;
 	}
 
 	public String getBundleCode() {
@@ -52,16 +50,16 @@ public class Bundle {
 	public void setBundleImage(String bundleImage) {
 		this.bundleImage = bundleImage;
 	}
-	public Product getProduct() {
-		return product;
+	public List<Product> getProductList() {
+		return productList;
 	}
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
 	}
 	
 	@Override
 	public String toString() {
 		return "Bundle [bundleCode=" + bundleCode + ", bundleName=" + bundleName + ", bundleDetails=" + bundleDetails
-				+ ", bundlePrice=" + bundlePrice + ", bundleImage=" + bundleImage + ", product=" + product + "]";
+				+ ", bundlePrice=" + bundlePrice + ", bundleImage=" + bundleImage + "]";
 	}	
 }

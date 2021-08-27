@@ -6,16 +6,12 @@ public class Category {
 	private String categoryCode; //카테고리 코드
 	private String categoryName; //카테고리 이름
 	
-	private List<Product> productList; //상품 종류
+	private List<Product> productList; //상품 리스트
 
 	public Category() {}	
 	public Category(String categoryCode, String categoryName) {
 		this.categoryCode = categoryCode;
 		this.categoryName = categoryName;
-	}
-	public Category(String categoryCode, String categoryName, List<Product> productList) {
-		this(categoryCode, categoryName);
-		this.productList = productList;
 	}
 	
 	public String getCategoryCode() {

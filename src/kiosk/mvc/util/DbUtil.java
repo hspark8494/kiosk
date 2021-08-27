@@ -16,7 +16,6 @@ public class DbUtil {
 	 */
 	static {
 		try {
-			//테스트 내용 추가 ************************************
 			//외부 properteis파일 로딩하기
 			proFile.load(new FileInputStream("resources/properties/dbInfo.properties"));
 			proFile.load(new FileInputStream("resources/properties/dbQuery.properties"));

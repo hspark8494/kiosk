@@ -1,11 +1,11 @@
 package kiosk.mvc.model.dto;
 
 public class OrdersDetails {
-	private String ordersDetailsCode;
-	private String ordersCode;
-	private String productCode;
-	private String bundleCode;
-	private int ordersDetailsQTY;
+	private String ordersDetailsCode; //주문 상세 코드
+	private String ordersCode; //주문 코드
+	private String productCode; //상품 코드
+	private String bundleCode; //세트 코드
+	private int ordersDetailsQTY; //주문 수량
 	
 	public OrdersDetails() {}
 	public OrdersDetails(String ordersDetailsCode, String ordersCode, String productCode, String bundleCode,

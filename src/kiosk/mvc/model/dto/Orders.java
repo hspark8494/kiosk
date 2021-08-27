@@ -3,21 +3,17 @@ package kiosk.mvc.model.dto;
 import java.util.List;
 
 public class Orders {
-	private String ordersCode;
-	private int ordersPrice;
-	private String ordersDate;
+	private String ordersCode; //주문 코드
+	private int ordersPrice; //주문 금액
+	private String ordersDate; //주문 날짜
 	
-	private List<OrdersDetails> ordersDetailsList;
+	private List<OrdersDetails> ordersDetailsList; //주문 상세 내역
 
 	public Orders() {}
 	public Orders(String ordersCode, int ordersPrice, String ordersDate) {
 		this.ordersCode = ordersCode;
 		this.ordersPrice = ordersPrice;
 		this.ordersDate = ordersDate;
-	}
-	public Orders(String ordersCode, int ordersPrice, String ordersDate, List<OrdersDetails> ordersDetailsList) {
-		this(ordersCode, ordersPrice, ordersDate);
-		this.ordersDetailsList = ordersDetailsList;
 	}
 	
 	public String getOrdersCode() {
