@@ -10,15 +10,26 @@ $(document).ready(function () {
     });
 
     $(".product-wrapper").click(function(){
-
-        $("#myModal").removeClass("hidden");
-        console.log("clicked");
-
+        $(".modal").removeClass("hidden");
     });
 
     $(".modal-close").click(function(){
-        $("#myModal").addClass("hidden");
+        $(".modal").addClass("hidden");
     });
+
+    $(".fa-minus-square").click(function(){
+        let qty = $(this).parent().find(".cart-item-qty");
+        $(qty).text(parseInt($(qty).text())-1);
+    });
+
+    $(".fa-plus-square").click(function(){
+        let qty = $(this).parent().find(".cart-item-qty");
+        $(qty).text(parseInt($(qty).text())+1);
+    });
+
+    $(".close").click(function(){
+        $(this).parent().parent().remove();
+    })
 
 });
 // // Get the modal
