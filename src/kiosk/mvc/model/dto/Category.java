@@ -3,10 +3,10 @@ package kiosk.mvc.model.dto;
 import java.util.List;
 
 public class Category {
-	private String categoryCode; //Ä«Å×°í¸® ÄÚµå
-	private String categoryName; //Ä«Å×°í¸® ÀÌ¸§
+	private String categoryCode; //ì¹´í…Œê³ ë¦¬ ì½”ë“œ
+	private String categoryName; //ì¹´í…Œê³ ë¦¬ ì´ë¦„
 	
-	private List<Product> productList; //»óÇ° Á¾·ù
+	private List<Product> productList; //ìƒí’ˆ ì¢…ë¥˜
 
 	public Category() {}	
 	public Category(String categoryCode, String categoryName) {

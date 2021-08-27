@@ -8,7 +8,7 @@ import kiosk.mvc.model.dto.OrdersDetails;
 public class CustomerDAOImpl implements CustomerDAO {
 
 	/**
-	 * ½ÃÀÛ°ú µ¿½Ã¿¡ DB¿¡¼­ ¸ğµç Á¤º¸¸¦ ÇÁ·ĞÆ®·Î ³Ñ°ÜÁÖ´Â ¸Ş¼Òµå
+	 * ì‹œì‘ê³¼ ë™ì‹œì— DBì—ì„œ ëª¨ë“  ì •ë³´ë¥¼ í”„ë¡ íŠ¸ë¡œ ë„˜ê²¨ì£¼ëŠ” ë©”ì†Œë“œ
 	 * select.All=select * from category join product using(category_code) join bundle using(product_code)
 	 * */
 	@Override
@@ -18,7 +18,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	/**
-	 * ÁÖ¹® ¸Ş¼Òµå
+	 * ì£¼ë¬¸ ë©”ì†Œë“œ
 	 * insert.orders=insert into orders(orders_code, orders_price, orders_date) values(orders_seq.nextval, ?, default)
 	 * */
 	@Override
@@ -28,7 +28,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	/**
-	 * ÁÖ¹® »ó¼¼ ¸Ş¼Òµå
+	 * ì£¼ë¬¸ ìƒì„¸ ë©”ì†Œë“œ
 	 * insert.ordersDetails=insert into orders_details(orders_details_code, orders_code, product_code, bundle_code, orders_details_qty)
 	 * values(orders_details_seq.nextval, orders_seq.currval, ?, ?, ?)
 	 * */

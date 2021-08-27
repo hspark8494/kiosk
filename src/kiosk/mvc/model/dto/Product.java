@@ -3,15 +3,15 @@ package kiosk.mvc.model.dto;
 import java.util.List;
 
 public class Product {
-	private String productCode; //»óÇ°ÄÚµå
-	private String productName; //»óÇ° ÀÌ¸§
-	private int productPrice; //»óÇ°°¡°İ
-	private String productDetails; //»óÇ°¼³¸í
-	private String productImage; //»óÇ°ÀÌ¹ÌÁö URL
-	private String productOptions; //»óÇ° ¿É¼Ç
-	private boolean isBundle; //¼¼Æ® Ã¼Å©
+	private String productCode; //ìƒí’ˆì½”ë“œ
+	private String productName; //ìƒí’ˆ ì´ë¦„
+	private int productPrice; //ìƒí’ˆê°€ê²©
+	private String productDetails; //ìƒí’ˆì„¤ëª…
+	private String productImage; //ìƒí’ˆì´ë¯¸ì§€ URL
+	private String productOptions; //ìƒí’ˆ ì˜µì…˜
+	private boolean isBundle; //ì„¸íŠ¸ ì²´í¬
 	
-	private Category category; //Ä«Å×°í¸®
+	private Category category; //ì¹´í…Œê³ ë¦¬
 	private List<Bundle> bundleList;
 	
 	public Product() {}

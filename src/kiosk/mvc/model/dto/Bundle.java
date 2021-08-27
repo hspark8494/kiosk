@@ -1,11 +1,11 @@
 package kiosk.mvc.model.dto;
 
 public class Bundle {
-	private String bundleCode; //¼¼Æ® ÄÚµå
-	private String bundleName; //¼¼Æ® ÀÌ¸§
-	private String bundleDetails; //¼¼Æ® ¼³¸í
-	private int bundlePrice; //¼¼Æ® °¡°İ
-	private String bundleImage; //¼¼Æ® ÀÌ¹ÌÁö URL
+	private String bundleCode; //ì„¸íŠ¸ ì½”ë“œ
+	private String bundleName; //ì„¸íŠ¸ ì´ë¦„
+	private String bundleDetails; //ì„¸íŠ¸ ì„¤ëª…
+	private int bundlePrice; //ì„¸íŠ¸ ê°€ê²©
+	private String bundleImage; //ì„¸íŠ¸ ì´ë¯¸ì§€ URL
 	
 	private Product product;
 

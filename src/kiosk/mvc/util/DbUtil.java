@@ -12,12 +12,12 @@ public class DbUtil {
 	private static Properties proFile = new Properties();
 
 	/**
-	 * ·Îµå
+	 * ë¡œë“œ
 	 */
 	static {
 		try {
-			//Å×½ºÆ® ³»¿ë Ãß°¡ ************************************
-			//¿ÜºÎ properteisÆÄÀÏ ·ÎµùÇÏ±â
+			//í…ŒìŠ¤íŠ¸ ë‚´ìš© ì¶”ê°€ ************************************
+			//ì™¸ë¶€ properteisíŒŒì¼ ë¡œë”©í•˜ê¸°
 			proFile.load(new FileInputStream("resources/properties/dbInfo.properties"));
 			proFile.load(new FileInputStream("resources/properties/dbQuery.properties"));
 			
