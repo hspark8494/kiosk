@@ -6,6 +6,7 @@ import java.util.List;
 import kiosk.mvc.model.dto.Bundle;
 import kiosk.mvc.model.dto.Category;
 import kiosk.mvc.model.dto.Orders;
+import kiosk.mvc.model.dto.Product;
 
 public interface CustomerDAO {
 	/**

@@ -18,7 +18,6 @@ import kiosk.mvc.util.DbUtil;
 public class CustomerDAOImpl implements CustomerDAO {
 	
 	private Properties proFile = DbUtil.getProFile();
-	
 	/**
 	 * 카테고리별로 상품의 정보를 가져오는 메소드
 	 * select.productByCategory=select * from category join product using(category_code)
@@ -48,6 +47,10 @@ public class CustomerDAOImpl implements CustomerDAO {
                     Product product = new Product(rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6),
                     							  rs.getString(7), rs.getString(8), isBundle);
                     productList.add(product);
+                    
+                    category.setProductList(productList);
+                    tempCategoryCode = categoryCode;
+                    categoryList.add(category);
                 }else {
                 	Category category = categoryList.get(categoryList.size()-1);
                 	
@@ -63,7 +66,6 @@ public class CustomerDAOImpl implements CustomerDAO {
         	DbUtil.close(con, ps, rs);
         }
         return categoryList;
-    
 	}
 
 	/**
@@ -71,6 +73,46 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * select.productInBundle=select * from bundle join product using(product_code)
 	 * */
 	public List<Bundle> selectProductInBundle() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Bundle> bundleList = new ArrayList<Bundle>();
+		String sql = proFile.getProperty("select.productInBundle");
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			String tempBundleCode = "";
+			while(rs.next()) {
+				String bundleCode = rs.getString(1);
+				if(tempBundleCode.equals(bundleCode)) {
+					Bundle bundle = new Bundle(bundleCode,rs.getString(2),rs.getString(3),rs.getInt(4),
+							rs.getString(5));
+					List<Product> productList = new ArrayList<Product>();
+	                int result = rs.getInt(9);
+	                boolean isBundle = false;
+	                if(result==1) isBundle = true;
+	                Product product = new Product(rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6),
+	                    		rs.getString(7), rs.getString(8), isBundle);
+	                productList.add(product);
+	                bundle.setProductList(productList);
+                    tempBundleCode = bundleCode;
+                    bundleList.add(bundle);
+				}else {
+					Bundle bundle = bundleList.get(bundleList.size()-1);
+					List<Product> productList = bundle.getProductList();
+					int result = rs.getInt(9);
+                    boolean isBundle = false;
+                    if(result==1) isBundle = true;
+                	productList.add(new Product(rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6),
+                								rs.getString(7), rs.getString(8), isBundle));
+				}
+			}
+			
+		} finally {
+			DbUtil.close(con, ps, rs);
+		}
+		
 		return null;
 	}
 		

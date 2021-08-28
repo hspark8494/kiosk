@@ -1,5 +1,7 @@
 package kiosk.mvc.model.dto;
 
+import java.util.List;
+
 public class Product {
 	private String productCode; //상품코드
 	private String productName; //상품 이름
@@ -10,7 +12,7 @@ public class Product {
 	private boolean isBundle; //세트 체크
 	
 	private Category category; //카테고리
-	private Bundle bundle; //세트
+	private List<Bundle> bundle; //세트
 	
 	public Product() {}
 	public Product(String productCode, String productName, int productPrice, String productDetails, String productImage,
@@ -77,13 +79,12 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}	
-	public Bundle getBundle() {
+	public List<Bundle> getBundle() {
 		return bundle;
 	}
-	public void setBundle(Bundle bundle) {
+	public void setBundle(List<Bundle> bundle) {
 		this.bundle = bundle;
 	}
-	
 	@Override
 	public String toString() {
 		return "Product [productCode=" + productCode + ", productName=" + productName + ", productPrice=" + productPrice
