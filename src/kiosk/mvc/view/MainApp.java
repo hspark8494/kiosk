@@ -1,6 +1,7 @@
 package kiosk.mvc.view;
 
 import javafx.application.Application;
+import javafx.concurrent.Worker;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -16,7 +17,6 @@ public class MainApp extends Application {
 
 	@Override
 	public void start(final Stage stage) throws Exception {
-
 		double x = 765.0;
 		double y = 1080.0;
 
@@ -37,8 +37,16 @@ public class MainApp extends Application {
 		stage.show();
 		
 		FrontController.getInstance().setWebView(pane.getWebView());
-		FrontController.getInstance().initProducts();
-		FrontController.getInstance().initBundles();
+		Worker<Void> worker= pane.getWebEngine().getLoadWorker();
+		
+		FrontController fc = FrontController.getInstance();
+		
+		worker.stateProperty().addListener((ob, ov, nv) -> {
+			if (nv == Worker.State.SUCCEEDED) {
+				fc.initialize();
+			}
+		});
+		
 	}
 
 	public static void main(String[] args) {

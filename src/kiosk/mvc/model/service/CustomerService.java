@@ -2,12 +2,14 @@ package kiosk.mvc.model.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import kiosk.mvc.model.dao.CustomerDAO;
 import kiosk.mvc.model.dao.CustomerDAOImpl;
 import kiosk.mvc.model.dto.Bundle;
 import kiosk.mvc.model.dto.Category;
 import kiosk.mvc.model.dto.Orders;
+import kiosk.mvc.model.dto.Product;
 
 public class CustomerService {
 	CustomerDAO customerDAO = new CustomerDAOImpl();
@@ -22,8 +24,8 @@ public class CustomerService {
 	/**
 	 * 세트의 정보를 가져오는 메소드
 	 * */
-	public List<Bundle> selectBundle() throws SQLException{
-		return customerDAO.selectBundle();
+	public List<Product> selectBundle() throws SQLException{
+		return customerDAO.selectBundle().stream().map(Bundle::toBundleWarpper).collect(Collectors.toList());
 	}
 	
 	/**

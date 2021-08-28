@@ -1,6 +1,5 @@
 package kiosk.mvc.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -8,9 +7,8 @@ import com.google.gson.Gson;
 import javafx.concurrent.Worker;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import jdk.nashorn.api.scripting.JSObject;
-import kiosk.mvc.model.dto.Bundle;
 import kiosk.mvc.model.dto.Category;
+import kiosk.mvc.model.dto.Product;
 import kiosk.mvc.model.service.CustomerService;
 
 /**
@@ -52,13 +50,9 @@ public class FrontController {
 		try {
 			List<Category> list = cs.selectProductByCategory();
 			String data = gson.toJson(list);
-			Worker<Void> worker = webEngine.getLoadWorker();
 			System.out.println(data);
-			worker.stateProperty().addListener((ob, ov, nv) -> {
-				if (nv == Worker.State.SUCCEEDED) {
-					webEngine.executeScript("initProducts('"+data+"');");
-				}
-			});
+
+			webEngine.executeScript("initProducts('"+data+"');");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,19 +64,24 @@ public class FrontController {
 	 */
 	public void initBundles() {
 		try {
-			List<Bundle> list = cs.selectBundle();
+			List<Product> list = cs.selectBundle();
 			String data = gson.toJson(list);
-			Worker<Void> worker = webEngine.getLoadWorker();
-			System.out.println(data);
-			worker.stateProperty().addListener((ob, ov, nv) -> {
-				if (nv == Worker.State.SUCCEEDED) {
-					webEngine.executeScript("initBundles('"+data+"');");
-				}
-			});
+			webEngine.executeScript("initBundles('"+data+"');");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void initialize() {
+		initProducts();
+		initBundles();
+		webEngine.executeScript("initialize()");
+		
+	}
+	
+	public static void main(String[] args) {
+		getInstance().initBundles();
 	}
 
 }

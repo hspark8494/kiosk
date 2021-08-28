@@ -386,7 +386,7 @@ body, html {
 
 .modal-text-title{
     font-size: 28px;
-    color:#e22219;
+    color:rgb(255, 89, 59);
     text-align: center;
     margin-top: 25px;
     animation: anim 0.7s linear forwards; 

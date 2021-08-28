@@ -1,7 +1,5 @@
 package kiosk.mvc.model.dto;
 
-import java.util.List;
-
 public class Bundle {
 	private String bundleCode; //세트 코드
 	private String bundleName; //세트 이름
@@ -54,4 +52,8 @@ public class Bundle {
 		return "Bundle [bundleCode=" + bundleCode + ", bundleName=" + bundleName + ", bundleDetails=" + bundleDetails
 				+ ", bundlePrice=" + bundlePrice + ", bundleImage=" + bundleImage + "]";
 	}	
+	
+	public BundleWrapper toBundleWarpper(){
+		return new BundleWrapper(this);
+	}
 }
