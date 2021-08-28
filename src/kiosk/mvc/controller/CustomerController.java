@@ -6,6 +6,7 @@ import java.util.List;
 import kiosk.mvc.model.dto.Bundle;
 import kiosk.mvc.model.dto.Category;
 import kiosk.mvc.model.dto.Orders;
+import kiosk.mvc.model.dto.OrdersDetails;
 import kiosk.mvc.model.dto.Product;
 import kiosk.mvc.model.service.CustomerService;
 
@@ -28,24 +29,19 @@ public class CustomerController {
 				System.out.println();
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
 	/**
-	 * 세트별로 세트 안에 들어있는 상품(사이드, 음료)의 정보를 가져오는 메소드
+	 * 세트의 정보를 가져오는 메소드
 	 * */
-	public static void selectProductInBundle(){
+	public static void selectBundle(){
 		try {
-			List<Bundle> bundleList = customerService.selectProductInBundle();
-			//System.out.println("********총 세트 " + bundleList.size() + "개수 **************");
+			List<Bundle> bundleList = customerService.selectBundle();
+			System.out.println("********총 세트 " + bundleList.size() + "개수 **************");
 			for(Bundle bundle : bundleList) {
 				System.out.println(bundle.getBundleCode() + "의 " + bundle.getBundleName());
-				
-				for(Product product : bundle.getProductList()) {
-					System.out.println(product);
-				}
-				System.out.println();
 			}
 		}catch (SQLException e) {
 			//e.printStackTrace();
@@ -55,12 +51,24 @@ public class CustomerController {
 	/**
 	 * 주문 완료시 주문 내역을 저장하는 메소드
 	 * */
-	public void ordersInsert(Orders orders){ 
+	public static void insertOrders(){ 
+		Orders orders = new Orders(null, 7777, null);
+		OrdersDetails ordersDetails = new OrdersDetails(null, null, "P1000001", null, 2);
 		
+		orders.getOrdersDetailsList().add(ordersDetails);
+		//String ordersDetailsCode, String ordersCode, String productCode, String bundleCode,
+				//int ordersDetailsQTY
+		try {
+			customerService.insertOrders(orders);
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public static void main(String[] args) {
 		//selectProductByCategory();
-		selectProductInBundle();
+		//selectBundle();
+		insertOrders();
 	}
 }

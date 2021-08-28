@@ -9,8 +9,6 @@ public class Bundle {
 	private int bundlePrice; //세트 가격
 	private String bundleImage; //세트 이미지 URL
 	
-	private List<Product> productList; //상품 리스트
-
 	public Bundle() {}
 	public Bundle(String bundleCode, String bundleName, String bundleDetails, int bundlePrice, String bundleImage) {
 		this.bundleCode = bundleCode;
@@ -49,12 +47,6 @@ public class Bundle {
 	}
 	public void setBundleImage(String bundleImage) {
 		this.bundleImage = bundleImage;
-	}
-	public List<Product> getProductList() {
-		return productList;
-	}
-	public void setProductList(List<Product> productList) {
-		this.productList = productList;
 	}
 	
 	@Override

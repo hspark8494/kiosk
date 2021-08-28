@@ -1,5 +1,6 @@
 package kiosk.mvc.model.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Orders {
@@ -7,7 +8,7 @@ public class Orders {
 	private int ordersPrice; //주문 금액
 	private String ordersDate; //주문 날짜
 	
-	private List<OrdersDetails> ordersDetailsList; //주문 상세 내역
+	private List<OrdersDetails> ordersDetailsList = new ArrayList<OrdersDetails>(); //주문 상세 내역
 
 	public Orders() {}
 	public Orders(String ordersCode, int ordersPrice, String ordersDate) {

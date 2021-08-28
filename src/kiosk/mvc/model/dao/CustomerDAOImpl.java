@@ -68,51 +68,29 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	/**
-	 * 세트별로 세트 안에 들어있는 상품(사이드, 음료)의 정보를 가져오는 메소드
-	 * select.productInBundle=select * from bundle join product using(product_code)
+	 * 세트의 정보를 가져오는 메소드
+	 * select.productInBundle=select * from bundle
 	 * */
-	public List<Bundle> selectProductInBundle() throws SQLException {
+	public List<Bundle> selectBundle() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Bundle> bundleList = new ArrayList<Bundle>();
-		String sql = proFile.getProperty("select.productInBundle");
+		String sql = proFile.getProperty("select.Bundle");
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
-			String tempBundleCode = "";
 			while(rs.next()) {
-				String bundleCode = rs.getString("bundle_code");
-				if(!tempBundleCode.equals(bundleCode)) {
-					Bundle bundle = new Bundle(bundleCode, rs.getString("bundle_name"), rs.getString("bundle_details"), rs.getInt("bundle_price"),
-							rs.getString("bundle_image"));
-					List<Product> productList = new ArrayList<Product>();
-	                int result = rs.getInt("product_is_bundle");
-	                boolean isBundle = false;
-	                if(result == 1) isBundle = true;
-	                Product product = new Product(rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6),
-	                    		rs.getString(7), rs.getString(8), isBundle);
-	                productList.add(product);
-	                bundle.setProductList(productList);
-                    tempBundleCode = bundleCode;
-                    bundleList.add(bundle);
-				}else {
-					Bundle bundle = bundleList.get(bundleList.size()-1);
-					List<Product> productList = bundle.getProductList();
-					int result = rs.getInt(9);
-                    boolean isBundle = false;
-                    if(result==1) isBundle = true;
-                	productList.add(new Product(rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6),
-                								rs.getString(7), rs.getString(8), isBundle));
-				}
+				Bundle bundle = new Bundle(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+				bundleList.add(bundle);
 			}
 			
 		} finally {
 			DbUtil.close(con, ps, rs);
 		}
 		
-		return null;
+		return bundleList;
 	}
 		
 	/**
@@ -120,7 +98,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * insert.orders=insert into orders(orders_code, orders_price, orders_date) values(orders_seq.nextval, ?, default)
 	 * */
 	@Override
-	public int ordersInsert(Orders orders) throws SQLException {
+	public int insertOrders(Orders orders) throws SQLException {
 		Connection con = null;
         PreparedStatement ps = null;
         String sql = proFile.getProperty("insert.orders");
@@ -137,7 +115,7 @@ public class CustomerDAOImpl implements CustomerDAO {
                 con.rollback();
                 throw new SQLException("주문 실패하였습니다.");
             }else {
-            	int re [] = ordersDetailsInsert(con, orders);
+            	int re [] = intsertOrdersDetails(con, orders);
 
                 for(int i: re) {
                     if(i != 1) {
@@ -160,7 +138,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	 * insert.ordersDetails=insert into orders_details(orders_details_code, orders_code, product_code, bundle_code, orders_details_qty)
 	 * values(orders_details_seq.nextval, orders_seq.currval, ?, ?, ?)
 	 * */
-	public int[] ordersDetailsInsert(Connection con, Orders orders) throws SQLException {
+	public int[] intsertOrdersDetails(Connection con, Orders orders) throws SQLException {
 		PreparedStatement ps = null;
 		String sql = proFile.getProperty("insert.ordersDetails");
 		int result [] = null;

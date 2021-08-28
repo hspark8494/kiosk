@@ -19,11 +19,11 @@ public interface CustomerDAO {
 	 * 세트별로 세트 안에 들어있는 상품(사이드, 음료)의 정보를 가져오는 메소드
 	 * select.productInBundle=select * from bundle join product using(product_code) 
 	 * */
-	List<Bundle> selectProductInBundle() throws SQLException;
+	List<Bundle> selectBundle() throws SQLException;
 	
 	/**
 	 * 주문 완료시 주문 내역을 저장하는 메소드
 	 * insert.orders=insert into orders(orders_code, orders_price, orders_date) values(orders_seq.nextval, ?, default)
 	 * */
-	int ordersInsert(Orders orders) throws SQLException;
+	int insertOrders(Orders orders) throws SQLException;
 }

@@ -12,7 +12,6 @@ public class Product {
 	private boolean isBundle; //세트 체크
 	
 	private Category category; //카테고리
-	private List<Bundle> bundle; //세트
 	
 	public Product() {}
 	public Product(String productCode, String productName, int productPrice, String productDetails, String productImage,
@@ -78,12 +77,6 @@ public class Product {
 	}
 	public void setCategory(Category category) {
 		this.category = category;
-	}	
-	public List<Bundle> getBundle() {
-		return bundle;
-	}
-	public void setBundle(List<Bundle> bundle) {
-		this.bundle = bundle;
 	}
 	@Override
 	public String toString() {
