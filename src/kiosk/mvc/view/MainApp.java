@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import kiosk.mvc.controller.FrontController;
 
 /**
  * Kiosk 메인 어플리케이션 클래스
@@ -17,7 +18,7 @@ public class MainApp extends Application {
 	public void start(final Stage stage) throws Exception {
 
 		double x = 765.0;
-		double y = 1025.0;
+		double y = 1080.0;
 
 		BrowserPane pane = new BrowserPane("resources/html/index.html", x, y);
 
@@ -29,11 +30,15 @@ public class MainApp extends Application {
 		stage.initStyle(StageStyle.UNDECORATED);
 		stage.setTitle("Kiosk");
 		
-		pane.setWindowMover(stage, 200.0, 300.0);
+		pane.setWindowMover(stage, 300.0, 75.0);
 		stage.setWidth(x);
 		stage.setHeight(y);
 
 		stage.show();
+		
+		FrontController.getInstance().setWebView(pane.getWebView());
+		FrontController.getInstance().initProducts();
+		FrontController.getInstance().initBundles();
 	}
 
 	public static void main(String[] args) {

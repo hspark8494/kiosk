@@ -21,8 +21,8 @@ import javafx.stage.Stage;
  *
  */
 public class BrowserPane extends AnchorPane {
-    private final WebView browser = new WebView();
-    private final WebEngine webEngine = browser.getEngine();
+    private final WebView webView = new WebView();
+    private final WebEngine webEngine = webView.getEngine();
     
 
     /**
@@ -33,10 +33,11 @@ public class BrowserPane extends AnchorPane {
      * @throws MalformedURLException
      */
 	public BrowserPane(String initURL, double width, double height) throws MalformedURLException {
-		browser.setFontSmoothingType(FontSmoothingType.GRAY);
-		browser.setContextMenuEnabled(false);
-		browser.setMinWidth(width);
-        browser.setMinHeight(height);
+		webView.setFontSmoothingType(FontSmoothingType.GRAY);
+		webView.setContextMenuEnabled(false);
+		webView.setMinWidth(width);
+		webView.setMinHeight(height);
+		webEngine.setJavaScriptEnabled(true);
 
         this.setMinWidth(width);
         this.setMinHeight(height);
@@ -45,8 +46,7 @@ public class BrowserPane extends AnchorPane {
         URL url = file.toURI().toURL();
         
         webEngine.load(url.toString());
-        this.getChildren().add(browser);
-        
+        this.getChildren().add(webView);
 	}
 	
 
@@ -77,8 +77,8 @@ public class BrowserPane extends AnchorPane {
         this.getChildren().add(pane);
 	}
 	
-	public WebView getBrowser() {
-		return browser;
+	public WebView getWebView() {
+		return webView;
 	}
 	
 	public WebEngine getWebEngine() {

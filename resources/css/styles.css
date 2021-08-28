@@ -37,9 +37,10 @@ body, html {
     width:765px;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
-    height:1025px;
+    /* height:1025px;
     max-height: 1025px;
-    min-height: 1025px;
+    min-height: 1025px; */
+    height: 1100px;
     overflow: hidden;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
