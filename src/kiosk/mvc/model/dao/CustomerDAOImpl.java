@@ -36,9 +36,8 @@ public class CustomerDAOImpl implements CustomerDAO {
             String tempCategoryCode = ""; //임시카테고리 코드 NullPointException 방지
             while(rs.next()) {
                 String categoryCode = rs.getString(1);  //카테고리코드 가져오기 
-                if(tempCategoryCode.equals(categoryCode)) { //임시랑 카테고리랑 비교 
-                	
-                    Category category = new Category(categoryCode, rs.getString(2)); 
+                if(!tempCategoryCode.equals(categoryCode)) { //임시랑 카테고리랑 비교 
+                	Category category = new Category(categoryCode, rs.getString(2)); 
                     
                     List<Product> productList = new ArrayList<Product>();
                     int result = rs.getInt(9);
@@ -84,14 +83,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 			rs=ps.executeQuery();
 			String tempBundleCode = "";
 			while(rs.next()) {
-				String bundleCode = rs.getString(1);
-				if(tempBundleCode.equals(bundleCode)) {
-					Bundle bundle = new Bundle(bundleCode,rs.getString(2),rs.getString(3),rs.getInt(4),
-							rs.getString(5));
+				String bundleCode = rs.getString("bundle_code");
+				if(!tempBundleCode.equals(bundleCode)) {
+					Bundle bundle = new Bundle(bundleCode, rs.getString("bundle_name"), rs.getString("bundle_details"), rs.getInt("bundle_price"),
+							rs.getString("bundle_image"));
 					List<Product> productList = new ArrayList<Product>();
-	                int result = rs.getInt(9);
+	                int result = rs.getInt("product_is_bundle");
 	                boolean isBundle = false;
-	                if(result==1) isBundle = true;
+	                if(result == 1) isBundle = true;
 	                Product product = new Product(rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6),
 	                    		rs.getString(7), rs.getString(8), isBundle);
 	                productList.add(product);

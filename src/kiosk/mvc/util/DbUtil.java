@@ -23,7 +23,7 @@ public class DbUtil {
 			Class.forName(proFile.getProperty("driverName"));
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
