@@ -596,6 +596,7 @@ td {
     overflow: auto;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr;
+    animation: anim 0.7s ease-in-out forwards;
 }
 
 .modal-select-sub {
@@ -654,6 +655,7 @@ td {
 
 .modal-select-wrapper {
     flex-grow: 1000;
+    background-color: #F2EBE6;
 }
 
 /* 세트 선택 */
@@ -703,10 +705,15 @@ td {
     cursor: pointer;
 }
 
-.modal-select-bundle-button.side::before{
+.modal-select-bundle:nth-child(1) .modal-select-bundle-button{
+    background-color: #aaaaaa;
+    cursor:not-allowed;
+}
+
+.modal-select-bundle:nth-child(2) .modal-select-bundle-button::before{
     content: "사이드";
 }
-.modal-select-bundle-button.drink::before{
+.modal-select-bundle:nth-child(3) .modal-select-bundle-button::before{
     content: "음료";
 }
 

@@ -68,17 +68,19 @@ $(document).ready(function () {
         $(".menu-button:nth-child(1)").click();
 
 
+        bundleSelect = function (title,src) {
+            return $('<div class="modal-select-bundle"><div class="modal-select-bundle-img"><img src="'+src+'" /></div><div class="modal-select-bundle-title">'+title+'</div><button class="modal-select-bundle-button">변경</button></div>');
+        }
 
         $(".product-wrapper").click(function () {
             let tmp = $(this).data("data");
             $(".modal-text-title").text(tmp.productName);
             $(".modal-text-content").text(tmp.productDetails ? tmp.productDetails : "");
             $(".modal-banner-img img").attr("src", tmp.productImage);
-
-            let selector = $("<div class='modal-select'></div>");
-            //$(".modal-select-wrapper").empty();
+            $(".modal-select-wrapper").empty();
 
             if (tmp.categoryName != "세트") {
+                let selector = $("<div class='modal-select'></div>");
 
                 for (pid in productDict) {
                     let option = productDict[pid];
@@ -89,7 +91,7 @@ $(document).ready(function () {
                         $(content).append('<div class="modal-select-sub-title hgg99">' + option.productName + '</div>');
                         $(content).append('<div>' + option.productDetails);
                         $(content).append('<div class="modal-select-sub-price hgg99 price">' + option.productPrice + '</div>');
-//option.productCode
+                        //option.productCode
                         $(container).append(content).append($('<div class="modal-select-sub-img"><img src=""/></div>'));
                         $(container).data("data", option);
 
@@ -98,9 +100,17 @@ $(document).ready(function () {
                         console.log(selector);
                     }
                 }
-                if(selector.length >= 1){
+                if (selector.length >= 1) {
                     $(".modal-select-wrapper").append(selector);
                 }
+            } else {
+                let con = $("<div class='modal-select-bundle-container'></div>");
+
+                $(con).append(bundleSelect(tmp.productName, tmp.productImage));
+                $(con).append(bundleSelect(productDict["P3000001"].productName, productDict["P3000001"].productImage));
+                $(con).append(bundleSelect(productDict["P2000001"].productName, productDict["P2000001"].productImage));
+                $(".modal-select-wrapper").append(con);
+
             }
 
             $(".modal").removeClass("hidden");
