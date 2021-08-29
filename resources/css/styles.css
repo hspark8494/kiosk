@@ -614,9 +614,6 @@ td {
     transition: ease-in-out 0.3s;
 }
 
-.modal-select-sub.selected{
-    background-color: green !important;
-}
 
 .modal-select-sub:last-child{
     margin-bottom: 0px !important;
@@ -635,13 +632,13 @@ td {
     font-size: 25px;
 }
 
-.modal-select-sub-content{
+.modal-select-sub-price{
     font-size: 21px;
     color: #e22219;
     font-weight: 800;
 }
 
-.modal-select-sub-content::before{
+.price::before{
     content: "₩ ";
 }
 
@@ -653,4 +650,8 @@ td {
 .modal-select-sub-img img{
     width: auto;
     height: 100%;
+}
+
+.modal-select-wrapper{
+    flex-grow: 1000;
 }
