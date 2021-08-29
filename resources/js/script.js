@@ -53,80 +53,67 @@ initDict = function () {
     });
 };
 
-initProducts = function () {
-    let con = $(".product-container-bg");
-    $(con).empty();
+$(document).ready(function(){
 
-    var bundleContent = $('<div class="product-container" data-page="세트"></div>');
-    bundles.forEach(p => {
-        let tmp = $(createProductHtml(p)).data("data", p).data("category", "세트");
-        $(bundleContent).append(tmp);
-    });
-    $(con).append(bundleContent);
-
-    products.forEach(e => {
-        var content = $('<div class="product-container" data-page="' + e.categoryName + '"></div>');
-        e.productList.forEach(p => {
-            if (p.productOptions == undefined) {
-                let tmp = $(createProductHtml(p)).data("data", p).data("category", e.categoryName);
-                $(content).append(tmp);
+    initProducts = function () {
+        for(pid in productDict){
+            var tmp = productDict[pid];
+            if(tmp.productOptions == undefined){
+                var nodes = $(createProductHtml(tmp)).data("data", tmp);
+                $(".product-container[data-page='" + tmp.categoryName + "']").append(nodes);
             }
+        }
+
+
+        $(".menu-button:nth-child(1)").click();
+    
+        $(".product-wrapper").click(function () {
+            let tmp = $(this).data("data");
+            $(".modal-text-title").text(tmp.productName);
+            $(".modal-text-content").text(tmp.productDetails ? tmp.productDetails : "");
+            $(".modal-banner-img img").attr("src", tmp.productImage);
+        
+            $(".modal").removeClass("hidden");
+        
         });
-        $(con).append(content);
-    });
+    }
+    
+    
+    initialize = function () {
+        initDict();
+        initProducts();
+    
+        $(".menu-button").click(function () {
+            $(".menu-button").removeClass("selected");
+            $(this).addClass("selected");
+            let target = $(this).text();
+    
+            $(".product-container").removeClass("show");
+            $(".product-container[data-page=" + target + "]").addClass("show");
+        });
+
+        $(".menu-button:nth-child(1)").click();
 
     
-
-    $(".menu-button:nth-child(1)").click();
-
-    $(".product-wrapper").click(function () {
-        console.log($(this).data());
-        $(".modal-text-title").text($(this).data("data").productName);
-        $(".modal-text-content").text($(this).data("data").productDetails);
-        $(".modal-banner-img img").attr("src", $(this).data("data").productImage);
+        $(".fa-minus-square").click(function () {
+            let qty = $(this).parent().find(".cart-item-qty");
+            $(qty).text(parseInt($(qty).text()) - 1);
+        });
     
-        $(".modal").removeClass("hidden");
+        $(".fa-plus-square").click(function () {
+            let qty = $(this).parent().find(".cart-item-qty");
+            $(qty).text(parseInt($(qty).text()) + 1);
+        });
     
-    });
-}
-
-
-initialize = function () {
-    initDict();
-    initProducts();
-
-    $(".menu-button").click(function () {
-        $(".menu-button").removeClass("selected");
-        $(this).addClass("selected");
-        let target = $(this).text();
-
-        $(".product-container").removeClass("show");
-        $(".product-container[data-page=" + target + "]").addClass("show");
-    });
-
-    $(".fa-minus-square").click(function () {
-        let qty = $(this).parent().find(".cart-item-qty");
-        $(qty).text(parseInt($(qty).text()) - 1);
-    });
-
-    $(".fa-plus-square").click(function () {
-        let qty = $(this).parent().find(".cart-item-qty");
-        $(qty).text(parseInt($(qty).text()) + 1);
-    });
-
-    $(".close").click(function () {
-        $(this).parent().parent().remove();
-    });
+        $(".close").click(function () {
+            $(this).parent().parent().remove();
+        });
+        
+        $(".modal-close").click(function () {
+            $(".modal").addClass("hidden");
+        });
+        
+    }
     
-    $(".modal-close").click(function () {
-        $(".modal").addClass("hidden");
-    });
-    
-
-}
-
-
-
-
-
-initialize();
+    initialize();
+});
