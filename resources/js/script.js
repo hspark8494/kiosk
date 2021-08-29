@@ -76,7 +76,7 @@ $(document).ready(function () {
             $(".modal-banner-img img").attr("src", tmp.productImage);
 
             let selector = $("<div class='modal-select'></div>");
-            $(".modal-select-wrapper").empty();
+            //$(".modal-select-wrapper").empty();
 
             if (tmp.categoryName != "세트") {
 

@@ -443,7 +443,6 @@ html {
     width: 100%;
     display: flex;
     border: 0px;
-    flex-grow: 100;
 }
 
 .modal-button-group button {
@@ -599,7 +598,7 @@ td {
     grid-template-rows: 1fr 1fr 1fr;
 }
 
-.modal-select-sub{
+.modal-select-sub {
     height: 120px;
     padding: 10px 20px;
     margin-bottom: 10px;
@@ -610,17 +609,17 @@ td {
     cursor: pointer;
 }
 
-.modal-select-sub:hover{
+.modal-select-sub:hover {
     background-color: #fffbe9;
     transition: ease-in-out 0.3s;
 }
 
 
-.modal-select-sub:last-child{
+.modal-select-sub:last-child {
     margin-bottom: 0px !important;
 }
 
-.modal-select-content{
+.modal-select-content {
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -629,30 +628,89 @@ td {
 }
 
 
-.modal-select-sub-title{
+.modal-select-sub-title {
     font-size: 25px;
 }
 
-.modal-select-sub-price{
+.modal-select-sub-price {
     font-size: 20px;
     margin-top: 3px;
     color: #e22219;
 }
 
-.price::before{
+.price::before {
     content: "₩ ";
 }
 
-.modal-select-sub-img{
-     flex-grow: 1000;
-     text-align: center;
+.modal-select-sub-img {
+    flex-grow: 1000;
+    text-align: center;
 }
 
-.modal-select-sub-img img{
+.modal-select-sub-img img {
     width: auto;
     height: 100%;
 }
 
-.modal-select-wrapper{
+.modal-select-wrapper {
     flex-grow: 1000;
+}
+
+/* 세트 선택 */
+.modal-select-bundle-container {
+    display: flex;
+    height: 100%;
+    text-align: center;
+    background-color: #F2EBE6;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.modal-select-bundle{
+    box-sizing: border-box;
+    padding: 10px;
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    animation: anim 0.7s ease-in-out forwards;
+}
+
+.modal-select-bundle > div{
+    margin: 5px 0px;
+}
+
+.modal-select-bundle-title{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.modal-select-bundle img{
+    box-sizing: border-box;
+    padding: 5%;
+    width: 100%;
+    height: auto;
+}
+
+.modal-select-bundle-button{
+    border: none;
+    background-color: rgba(31, 31, 31);
+    height: 40px;
+    font-family: "HGG99";
+    border-radius: 10px;
+    font-size: 15px;
+    margin: 15px 30px;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-select-bundle-button.side::before{
+    content: "사이드";
+}
+.modal-select-bundle-button.drink::before{
+    content: "음료";
+}
+
+.modal-select-bundle-button:hover{
+    background-color: rgba(43, 43, 43, 0.836);
+    transition: ease-in-out 0.3s;
 }

@@ -39,13 +39,13 @@ public class MainApp extends Application {
 		FrontController.getInstance().setWebView(pane.getWebView());
 		Worker<Void> worker= pane.getWebEngine().getLoadWorker();
 		
-		FrontController fc = FrontController.getInstance();
-		
-		worker.stateProperty().addListener((ob, ov, nv) -> {
-			if (nv == Worker.State.SUCCEEDED) {
-				fc.initialize();
-			}
-		});
+//		FrontController fc = FrontController.getInstance();
+//		
+//		worker.stateProperty().addListener((ob, ov, nv) -> {
+//			if (nv == Worker.State.SUCCEEDED) {
+//				fc.initialize();
+//			}
+//		});
 		
 	}
 
