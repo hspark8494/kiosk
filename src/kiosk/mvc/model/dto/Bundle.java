@@ -6,6 +6,7 @@ public class Bundle {
 	private String bundleDetails; //세트 설명
 	private int bundlePrice; //세트 가격
 	private String bundleImage; //세트 이미지 URL
+	private Product product;
 	
 	public Bundle() {}
 	public Bundle(String bundleCode, String bundleName, String bundleDetails, int bundlePrice, String bundleImage) {
@@ -47,6 +48,12 @@ public class Bundle {
 		this.bundleImage = bundleImage;
 	}
 	
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 	@Override
 	public String toString() {
 		return "Bundle [bundleCode=" + bundleCode + ", bundleName=" + bundleName + ", bundleDetails=" + bundleDetails
