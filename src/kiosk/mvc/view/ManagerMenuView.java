@@ -46,6 +46,8 @@ public class ManagerMenuView {
 		String productCode = sc.nextLine();
 		System.out.print("\n상품 이름 : ");
 		String productName = sc.nextLine();
+		System.out.print("\n카테고리 코드 : ");
+		String categoryCode = sc.nextLine();
 		System.out.print("\n상품 가격 : ");
 		int productPrice = Integer.parseInt(sc.nextLine());
 		System.out.print("\n상품 설명 : ");
@@ -55,11 +57,12 @@ public class ManagerMenuView {
 		System.out.print("\n상품 옵션 : "); //상품 코드(재귀적 관계)
 		String productOptions = sc.nextLine();
 		System.out.print("\n세트 체크 : ");
-		int result = Integer.parseInt(sc.nextLine()); // false = 0 , true = 1
+		int result = Integer.parseInt(sc.nextLine());// false = 0 , true = 1
+		
 		boolean isBundle = false;
 		if(result == 1) isBundle = true;
 		
-		managerController.productInsert(new Product(productCode, productName, productPrice, productDetails, productImage, productOptions, isBundle));		
+		managerController.productInsert(new Product(productCode, productName, categoryCode, productPrice, productDetails, productImage, productOptions, isBundle));		
 	}
 	
 	/**
