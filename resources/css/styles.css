@@ -739,14 +739,16 @@ td {
 
 .modal-side-content{
     background-color: white;
-    width: 80%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     margin: auto;
     position: absolute;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-side-header{
@@ -787,9 +789,26 @@ td {
     box-sizing: border-box;
     justify-content: center;
     cursor: pointer;
+    position: relative;
+    text-align: center;
+}
+.modal-side-select-proudct:hover{
+    background-color: #feecc9;
 }
 
 .modal-side-select-img img{
     width: 100%;
     height: auto;
+}
+
+.check{
+    width: 90px !important;
+    height: 90px !important;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    /*filter: hue-rotate(253deg) saturate(1000%);*/
 }
