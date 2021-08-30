@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
-import javafx.concurrent.Worker;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import kiosk.mvc.model.dto.Category;

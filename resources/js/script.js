@@ -113,7 +113,7 @@ $(document).ready(function () {
 
             }
 
-            $(".modal").removeClass("hidden");
+            $("#modal-main").removeClass("hidden");
 
         });
 

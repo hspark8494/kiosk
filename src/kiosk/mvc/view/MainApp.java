@@ -18,7 +18,7 @@ public class MainApp extends Application {
 	@Override
 	public void start(final Stage stage) throws Exception {
 		double x = 765.0;
-		double y = 1080.0;
+		double y = 1025.0;
 
 		BrowserPane pane = new BrowserPane("resources/html/index.html", x, y);
 
