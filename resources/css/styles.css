@@ -323,13 +323,102 @@ html {
     width: 100%;
     display: flex;
     height: 70px;
-    background-image: url(https://www.burgerking.co.kr/dist/img/bg_personality.2ff1d0f9.gif);
+    background-color:#353535;
 }
 
-.footer-info div {
+.footer-info-cart{
     width: 50%;
     height: 100%;
+    flex-grow: 1;
 }
+
+.footer-info-pay{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pay-button {
+    display: flex;
+    background-color: tomato;
+    width: 70%;
+    height: 75%;
+    margin: auto;
+    color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 2px;
+    border: none;
+    transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+    position: relative;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pay-button span,
+  .pay-button .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    color: white;
+  }
+
+  .pay-button span {
+    width: 72%;
+    line-height: inherit;
+    font-size: 22px;
+    text-transform: uppercase;
+    left: 0;
+    transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+  }
+
+  .pay-button span:after {
+    content: "";
+    background-color: rgb(255, 185, 185);
+    width: 2px;
+    height: 70%;
+    position: absolute;
+    top: 15%;
+    right: -1px;
+  }
+  .pay-button .icon {
+    width: 28%;
+    right: 0;
+    transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+  }
+  .pay-button .icon .fa {
+    color: white;
+    font-size: 30px;
+    vertical-align: middle;
+    height: 36px;
+    padding-top: 5px;
+    transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4), height 0.25s ease;
+  }
+
+.pay-button:hover span {
+    left: -72%;
+    opacity: 0;
+  }
+.pay-button:hover .icon {
+    width: 100%;
+  }
+ .pay-button:hover .icon .fa {
+    font-size: 45px;
+    height: 46px;
+  }
+  .pay-button:hover {
+    opacity: 0.9;
+  }
+  .pay-button:active {
+    opacity: 1;
+  }
+
 
 /* 모달 */
 .modal {
@@ -520,8 +609,9 @@ td {
 }
 
 .table-header th:nth-child(1) {
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABHgAAABkCAYAAAD9qYewAAAFVklEQVR4nO3du44cRRSA4domWIQcmACRcUlIeBQHDpBfAGdIDvweTgmQeAEiE/AiOCCwkIWQLQfWSrbsXWvZG2LkHrGXmanuruo+PfN9YUnddU6Hf9J7F79+nwq7lVL6MaX0bekX/+ft0cntgzfHX109f/Hq8Pzn354evz8+u6hxbxCnKaX7v/z+7PEW7wgAAAB01BT+YOJOPYu4k1ISdwAAAIBLSgYecacecQcAAABYqVTgEXfqEXcAAACAtUoEHnGnHnEHAAAA2Gho4BF36hF3AAAAgCxDAo+4U4+4AwAAAGTrG3jEnXrEHQAAAKCTPoFH3KlH3AEAAAA66xp4xJ16xB0AAACgly6BR9ypR9wBAAAAessNPOJOPeIOAAAAMEhO4BF36hF3AAAAgME2BR5xpx5xBwAAAChiXeARd+oRdwAAAIBiVgUecacecQcAAAAo6qbAI+7UI+4AAAAAxV0NPOJOPeIOAAAAUMX/A4+4U4+4AwAAAFTTBh5xpx5xBwAAAKiqEXeqEncAAACA6hpxpxpxBwAAABhFI+5UIe4AAAAAo7npN+mDiTviDgAAADCe4oFH3BF3AAAAgHEVDTzijrgDAAAAjK9Y4BF3xB0AAABgGkUCj7gj7gAAAADTGRx4xB1xBwAAAJjWoMAj7og7AAAAwPR6Bx5xJ91/9OTg8aMnBwHGAQAAAHZZr8CzLXFn//xi787Lo/1bp+d7HR5bxp2KowEAAABk6xx4tinufPf8cP+bdycf3Xt++HFm5BF3AAAAgHA6BZ5tizufH58t9r99cr6XEXnEHQAAACCk7MCzrXGntSHyiDsAAABAWFmBZ9vjTmtF5BF3AAAAgNA2Bp5diTutK5FH3AEAAADCWxs7di3utD5Env0vj04fijsAAABAdCuDx67GndbXhyd/P/jzzd2U0mdVBwQAAAAY6Mbosetx59N/zv765OzidUrpi5TSTyIPAAAAENm18CHuLONOS+QBAAAAQrsUP8Sda3GnJfIAAAAAYS0DiLizMu60RB4AAAAgpEUEEXc2xp2WyAMAAACE04g72XGnJfIAAAAAoTTiTqe40xJ5AAAAgDCuBRFxJ9u7lNL7MlsAAAAA9Hcpiog72f5IKf3wIfIAAAAATGoZRsSdbOIOAAAAEMoijog72cQdAAAAIJxG3Mkm7gAAAAAhNeJOFnEHAAAACKsRdzYSdwAAAIDQOsWSqYg7AAAAAKuFDzziDgAAAMB6oQOPuAMAAACwWdjAI+4AAAAA5AkZeMQdAAAAgHzhAo+4AwAAANBNqMAj7gAAAAB0FybwiDsAAAAA/YQIPOIOAAAAQH+TBx5xBwAAAGCYSQOPuAMAAAAw3GSBR9wBAAAAKGOSwCPuAAAAAJQzeuARdwAAAADKGjXwiDsAAAAA5Y0WeMQdAAAAgDpGCTziDgAAAEA91QOPuAMAAABQV9XAI+4AAAAA1Fct8Ig7AAAAAOOoEnjEHQAAAIDxFA884g4AAADAuIoGHnEHAAAAYHzFAo+4AwAAADCNIoFH3AEAAACYzuDAI+4AAAAATGtQ4BF3AAAAAKbXO/CIOwAAAAAx9Ao84g4AAABAHJ0Dj7gDAAAAEEunSCPuAAAAAMSTHWrEHQAAAICYsmKNuAMAAAAQ18ZgI+4AAAAAxLY22og7AAAAAPGtDDfiDgAAAMA83BhvxB0AAACA+bgWcMQdAAAAgHm5FHHEHQAAAID5WYYccQcAAABgnhYxR9wBAAAAmK9G3AEAAACYt0bcAQAAAJi3RtwBAAAAmDdxBwAAAGDmsgOPuAMAAAAQU1bgEXcAAAAAgkop/QvPfVySnBlNGQAAAABJRU5ErkJggg==");
-    background-size: 120% 150%;
+    background-size: auto 100%;
+    background-image: url(../images/table-deco.png);
+    background-repeat: no-repeat;
 }
 
 .table-header th {

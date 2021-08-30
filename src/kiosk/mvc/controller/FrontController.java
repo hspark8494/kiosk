@@ -65,6 +65,7 @@ public class FrontController {
 		try {
 			List<Product> list = cs.selectBundle();
 			String data = gson.toJson(list);
+			System.out.println(data);
 			webEngine.executeScript("initBundles('"+data+"');");
 
 		} catch (Exception e) {
@@ -79,8 +80,5 @@ public class FrontController {
 		
 	}
 	
-	public static void main(String[] args) {
-		getInstance().initBundles();
-	}
 
 }

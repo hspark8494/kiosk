@@ -32,10 +32,12 @@ currentProduct = {};
 
 
 initProducts = function (data) {
+    console.log("FROM CONTROLLER : " + data);
     products = JSON.parse(data);
 }
 
 initBundles = function (data) {
+    console.log("FROM CONTROLLER : " + data);
     bundles = JSON.parse(data);
 }
 
