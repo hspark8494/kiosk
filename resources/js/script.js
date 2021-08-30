@@ -53,108 +53,124 @@ initDict = function () {
     });
 };
 
+initProducts = function () {
+    for (pid in productDict) {
+        var tmp = productDict[pid];
+        if (tmp.productOptions == undefined) {
+            var nodes = $(createProductHtml(tmp)).data("data", tmp);
+            $(".product-container[data-page='" + tmp.categoryName + "']").append(nodes);
+        }
+    }
+
+    $(".menu-button:nth-child(1)").click();
+
+
+    bundleSelect = function (title,src) {
+        return $('<div class="modal-select-bundle"><div class="modal-select-bundle-img"><img src="'+src+'" /></div><div class="modal-select-bundle-title">'+title+'</div><button class="modal-select-bundle-button">변경</button></div>');
+    }
+
+
+    $(".product-wrapper").click(function () {
+        let tmp = $(this).data("data");
+        $(".modal-text-title").text(tmp.productName);
+        $(".modal-text-content").text(tmp.productDetails ? tmp.productDetails : "");
+        $(".modal-banner-img img").attr("src", tmp.productImage);
+        $(".modal-select-wrapper").empty();
+
+        if (tmp.categoryName != "세트") {
+            let selector = $("<div class='modal-select'></div>");
+
+            for (pid in productDict) {
+                let option = productDict[pid];
+                if (option.productOptions == tmp.productCode) {
+                    let container = $('<div class="modal-select-sub"></div>');
+
+                    let content = $('<div class="modal-select-content">');
+                    $(content).append('<div class="modal-select-sub-title hgg99">' + option.productName + '</div>');
+                    $(content).append('<div>' + option.productDetails);
+                    $(content).append('<div class="modal-select-sub-price hgg99 price">' + option.productPrice + '</div>');
+                    //option.productCode
+                    $(container).append(content).append($('<div class="modal-select-sub-img"><img src=""/></div>'));
+                    $(container).data("data", option);
+
+                    console.log(container);
+                    $(selector).append(container);
+                    console.log(selector);
+                }
+            }
+            if (selector.length >= 1) {
+                $(".modal-select-wrapper").append(selector);
+            }
+        } else {
+            let con = $("<div class='modal-select-bundle-container'></div>");
+
+            $(con).append(bundleSelect(tmp.productName, tmp.productImage));
+            $(con).append(bundleSelect(productDict["P3000001"].productName, productDict["P3000001"].productImage));
+            $(con).append(bundleSelect(productDict["P2000001"].productName, productDict["P2000001"].productImage));
+            $(".modal-select-wrapper").append(con);
+        }
+        $("#modal-main").removeClass("hidden");
+    });
+
+}
+
+initBundleOptions = function(){
+    function bundleHtml(name, price, src){
+        /* <img src="../images/check.png" class="check"/></div> */
+        return $('<div class="modal-side-select-proudct"><div class="modal-side-select-img"><img src="https://d1cua0vf0mkpiy.cloudfront.net/images/menu/normal/2961f7f7-bc00-4f31-b4a0-c2e00ccce52e.png" /><div class="modal-side-select-title">'+name+'</div><div class="modal-side-select-price">'+price+'</div></div>');
+    }
+
+    let side = $('.modal-side .side');
+    side.empty();
+    (products.find(e=> e.categoryName=="사이드").productList.filter(p=>p.isBundle)).forEach(tmp=>{
+        console.log(tmp);
+        let nodes = $(bundleHtml(tmp.productName, tmp.productPrice, tmp.productImage)).data("data", tmp);
+
+        side.append(nodes);
+    });
+
+}
+
+initialize = function () {
+    initDict();
+    initProducts();
+    initBundleOptions();
+
+    $(".menu-button").click(function () {
+        $(".menu-button").removeClass("selected");
+        $(this).addClass("selected");
+        let target = $(this).text();
+
+        $(".product-container").removeClass("show");
+        $(".product-container[data-page=" + target + "]").addClass("show");
+    });
+
+    $(".menu-button:nth-child(1)").click();
+
+
+    $(".fa-minus-square").click(function () {
+        let qty = $(this).parent().find(".cart-item-qty");
+        $(qty).text(parseInt($(qty).text()) - 1);
+    });
+
+    $(".fa-plus-square").click(function () {
+        let qty = $(this).parent().find(".cart-item-qty");
+        $(qty).text(parseInt($(qty).text()) + 1);
+    });
+
+    $(".close").click(function () {
+        $(this).parent().parent().remove();
+    });
+
+    $(".modal-close").click(function () {
+        $(".modal").addClass("hidden");
+    });
+
+}
+
+
+
 $(document).ready(function () {
-
-    initProducts = function () {
-
-        for (pid in productDict) {
-            var tmp = productDict[pid];
-            if (tmp.productOptions == undefined) {
-                var nodes = $(createProductHtml(tmp)).data("data", tmp);
-                $(".product-container[data-page='" + tmp.categoryName + "']").append(nodes);
-            }
-        }
-
-        $(".menu-button:nth-child(1)").click();
-
-
-        bundleSelect = function (title,src) {
-            return $('<div class="modal-select-bundle"><div class="modal-select-bundle-img"><img src="'+src+'" /></div><div class="modal-select-bundle-title">'+title+'</div><button class="modal-select-bundle-button">변경</button></div>');
-        }
-
-        $(".product-wrapper").click(function () {
-            let tmp = $(this).data("data");
-            $(".modal-text-title").text(tmp.productName);
-            $(".modal-text-content").text(tmp.productDetails ? tmp.productDetails : "");
-            $(".modal-banner-img img").attr("src", tmp.productImage);
-            $(".modal-select-wrapper").empty();
-
-            if (tmp.categoryName != "세트") {
-                let selector = $("<div class='modal-select'></div>");
-
-                for (pid in productDict) {
-                    let option = productDict[pid];
-                    if (option.productOptions == tmp.productCode) {
-                        let container = $('<div class="modal-select-sub"></div>');
-
-                        let content = $('<div class="modal-select-content">');
-                        $(content).append('<div class="modal-select-sub-title hgg99">' + option.productName + '</div>');
-                        $(content).append('<div>' + option.productDetails);
-                        $(content).append('<div class="modal-select-sub-price hgg99 price">' + option.productPrice + '</div>');
-                        //option.productCode
-                        $(container).append(content).append($('<div class="modal-select-sub-img"><img src=""/></div>'));
-                        $(container).data("data", option);
-
-                        console.log(container);
-                        $(selector).append(container);
-                        console.log(selector);
-                    }
-                }
-                if (selector.length >= 1) {
-                    $(".modal-select-wrapper").append(selector);
-                }
-            } else {
-                let con = $("<div class='modal-select-bundle-container'></div>");
-
-                $(con).append(bundleSelect(tmp.productName, tmp.productImage));
-                $(con).append(bundleSelect(productDict["P3000001"].productName, productDict["P3000001"].productImage));
-                $(con).append(bundleSelect(productDict["P2000001"].productName, productDict["P2000001"].productImage));
-                $(".modal-select-wrapper").append(con);
-
-            }
-
-            $(".modal").removeClass("hidden");
-
-        });
-
-
-    }
-
-    initialize = function () {
-        initDict();
-        initProducts();
-
-        $(".menu-button").click(function () {
-            $(".menu-button").removeClass("selected");
-            $(this).addClass("selected");
-            let target = $(this).text();
-
-            $(".product-container").removeClass("show");
-            $(".product-container[data-page=" + target + "]").addClass("show");
-        });
-
-        $(".menu-button:nth-child(1)").click();
-
-
-        $(".fa-minus-square").click(function () {
-            let qty = $(this).parent().find(".cart-item-qty");
-            $(qty).text(parseInt($(qty).text()) - 1);
-        });
-
-        $(".fa-plus-square").click(function () {
-            let qty = $(this).parent().find(".cart-item-qty");
-            $(qty).text(parseInt($(qty).text()) + 1);
-        });
-
-        $(".close").click(function () {
-            $(this).parent().parent().remove();
-        });
-
-        $(".modal-close").click(function () {
-            $(".modal").addClass("hidden");
-        });
-
-    }
 
     initialize();
 });

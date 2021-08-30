@@ -50,10 +50,10 @@
     </div>
 
     <!-- The Modal -->
-    <div class="modal hidden">
+    <div id="modal-main" class="modal hidden">
 
         <!-- Modal content -->
-        <div class="modal-content">
+        <div id="modal-main-content" class="modal-content">
             <div class="modal-header hgg99">메뉴 선택</div>
 
             <div class="modal-banner">
@@ -92,7 +92,7 @@
                             프렌치 프라이
                         </div>
                         <button class="modal-select-bundle-button side">
-                           변경
+                            변경
                         </button>
                     </div>
 
@@ -116,10 +116,17 @@
                 <button class="modal-close hgg99">취소</button>
                 <button class="modal-add hgg99">추가</button>
             </div>
-
-
+            <div class="modal-side">
+                <div class="modal-side-content">
+                    <div class="modal-side-header hgg99">
+                        사이드 변경
+                    </div>
+                    <div class="modal-side-select side">
+                    </div>
+                    <button class="modal-side-button">선택</button>
+                </div>
+            </div>
         </div>
-
     </div>
 
 
@@ -174,9 +181,6 @@
         </div>
     </div>
 
-    <div class="test">
-        <span id="test-label"></span>
-    </div>
 </body>
 
 </html>
