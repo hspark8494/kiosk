@@ -1,10 +1,12 @@
 package kiosk.mvc.model.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import kiosk.mvc.model.dao.ManagerDAO;
 import kiosk.mvc.model.dao.ManagerDAOImpl;
 import kiosk.mvc.model.dto.Bundle;
+import kiosk.mvc.model.dto.Orders;
 import kiosk.mvc.model.dto.Product;
 
 public class ManagerService {
@@ -55,6 +57,15 @@ public class ManagerService {
 	public void bundleDelete(String bundleCode) throws SQLException {
 		int result = managerDAO.bundleDelete(bundleCode);
 		if(result == 0) throw new SQLException(bundleCode + "와 일치하는 세트가 없습니다.");
+	}
+	
+	/**
+	 * 판매 내역 조회
+	 * */
+	public List<Orders> ordersSelect() throws SQLException {
+		List<Orders> ordersList = managerDAO.ordersSelect();
+		if(ordersList == null || ordersList.isEmpty()) throw new SQLException("판매 내역이 없습니다.");
+		return ordersList;
 	}
 
 }

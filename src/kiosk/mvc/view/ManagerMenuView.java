@@ -30,7 +30,7 @@ public class ManagerMenuView {
 				case 4 : bundleInsert(); break;
 				case 5 : bundleUpdate(); break;
 				case 6 : bundleDelete(); break;
-				case 7 : salesInquiry(); break; //판매조회
+				case 7 : ordersSelect(); break; //판매조회
 				case 9 : System.out.println("프로그램 종료");
 						System.exit(0);
 				default : System.out.println("메뉴는 숫자 '1 ~ 7' 또는 '9'를 입력해주세요");
@@ -46,6 +46,8 @@ public class ManagerMenuView {
 		String productCode = sc.nextLine();
 		System.out.print("\n상품 이름 : ");
 		String productName = sc.nextLine();
+		System.out.print("\n카테고리 코드 : ");
+		String categoryCode = sc.nextLine();
 		System.out.print("\n상품 가격 : ");
 		int productPrice = Integer.parseInt(sc.nextLine());
 		System.out.print("\n상품 설명 : ");
@@ -55,11 +57,12 @@ public class ManagerMenuView {
 		System.out.print("\n상품 옵션 : "); //상품 코드(재귀적 관계)
 		String productOptions = sc.nextLine();
 		System.out.print("\n세트 체크 : ");
-		int result = Integer.parseInt(sc.nextLine()); // false = 0 , true = 1
+		int result = Integer.parseInt(sc.nextLine());// false = 0 , true = 1
+		
 		boolean isBundle = false;
 		if(result == 1) isBundle = true;
 		
-		managerController.productInsert(new Product(productCode, productName, productPrice, productDetails, productImage, productOptions, isBundle));		
+		managerController.productInsert(new Product(productCode, productName, categoryCode, productPrice, productDetails, productImage, productOptions, isBundle));		
 	}
 	
 	/**
@@ -79,7 +82,9 @@ public class ManagerMenuView {
 	 * */
 	public void productDelete() {
 		System.out.print("\n상품 코드 : ");
-		managerController.productDelete(sc.nextLine());
+		String productCode = sc.nextLine();
+		
+		managerController.productDelete(productCode);
 	}
 	
 	/**
@@ -126,7 +131,7 @@ public class ManagerMenuView {
 	/**
 	 * 7.판매조회
 	 * */
-	public void salesInquiry() {
-		
+	public void ordersSelect() {
+		managerController.ordersSelect();
 	}
 }

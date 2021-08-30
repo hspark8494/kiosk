@@ -3,6 +3,7 @@ package kiosk.mvc.model.dto;
 public class Product {
 	private String productCode; //상품코드
 	private String productName; //상품 이름
+	private String categoryCode; // 카테고리 코드 
 	private int productPrice; //상품가격
 	private String productDetails; //상품설명
 	private String productImage; //상품이미지 URL
@@ -28,6 +29,18 @@ public class Product {
 		this.category = category;
 	}
 	
+	
+	public Product(String productCode, String productName, String categoryCode, int productPrice, String productDetails,
+			String productImage, String productOptions, boolean isBundle) {
+		this.productCode = productCode;
+		this.productName = productName;
+		this.categoryCode = categoryCode;
+		this.productPrice = productPrice;
+		this.productDetails = productDetails;
+		this.productImage = productImage;
+		this.productOptions = productOptions;
+		this.isBundle = isBundle;
+	}
 	public String getProductCode() {
 		return productCode;
 	}
@@ -39,6 +52,12 @@ public class Product {
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
 	}
 	public int getProductPrice() {
 		return productPrice;

@@ -1,8 +1,10 @@
 package kiosk.mvc.model.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import kiosk.mvc.model.dto.Bundle;
+import kiosk.mvc.model.dto.Orders;
 import kiosk.mvc.model.dto.Product;
 
 public interface ManagerDAO {
@@ -39,5 +41,5 @@ public interface ManagerDAO {
 	/**
 	 * 판매 조회
 	 */
-	
+	public List<Orders> ordersSelect() throws SQLException;
 }

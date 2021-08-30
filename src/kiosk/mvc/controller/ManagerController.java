@@ -1,8 +1,10 @@
 package kiosk.mvc.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import kiosk.mvc.model.dto.Bundle;
+import kiosk.mvc.model.dto.Orders;
 import kiosk.mvc.model.dto.Product;
 import kiosk.mvc.model.service.ManagerService;
 import kiosk.mvc.view.ManagerFailView;
@@ -43,6 +45,7 @@ public class ManagerController {
 			managerService.productDelete(productCode);
 			ManagerSuccessView.messagePrint(productCode + " 상품이 삭제되었습니다.");
 		}catch (SQLException e) {
+			e.printStackTrace();
 			ManagerFailView.messagePrint(e.getMessage());
 		}
 	}
@@ -78,6 +81,19 @@ public class ManagerController {
 		try {
 			managerService.bundleDelete(bundleCode);
 			ManagerSuccessView.messagePrint(bundleCode + " 세트가 삭제되었습니다.");
+		}catch (SQLException e) {
+			e.printStackTrace();
+			ManagerFailView.messagePrint(e.getMessage());
+		}
+	}
+	
+	/**
+	 * 판매 내역 조회
+	 * */
+	public void ordersSelect() {
+		try {
+			List<Orders> ordersList = managerService.ordersSelect();
+			ManagerSuccessView.ordersPrint(ordersList);			
 		}catch (SQLException e) {
 			ManagerFailView.messagePrint(e.getMessage());
 		}
