@@ -30,7 +30,7 @@ public class ManagerMenuView {
 				case 4 : bundleInsert(); break;
 				case 5 : bundleUpdate(); break;
 				case 6 : bundleDelete(); break;
-				case 7 : salesInquiry(); break; //판매조회
+				case 7 : ordersSelect(); break; //판매조회
 				case 9 : System.out.println("프로그램 종료");
 						System.exit(0);
 				default : System.out.println("메뉴는 숫자 '1 ~ 7' 또는 '9'를 입력해주세요");
@@ -82,7 +82,9 @@ public class ManagerMenuView {
 	 * */
 	public void productDelete() {
 		System.out.print("\n상품 코드 : ");
-		managerController.productDelete(sc.nextLine());
+		String productCode = sc.nextLine();
+		
+		managerController.productDelete(productCode);
 	}
 	
 	/**
@@ -129,7 +131,7 @@ public class ManagerMenuView {
 	/**
 	 * 7.판매조회
 	 * */
-	public void salesInquiry() {
-		
+	public void ordersSelect() {
+		managerController.ordersSelect();
 	}
 }
