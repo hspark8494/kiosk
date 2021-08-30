@@ -728,12 +728,12 @@ td {
 }
 
 .modal-side{
+    display: flex;
     position: fixed;
     width: 100%;
     height: 100%;
     background-color: rgb(0,0,0,0.6);
     overflow: hidden;
-    display: flex;
     flex-direction: column;
 }
 
@@ -801,9 +801,7 @@ td {
     height: auto;
 }
 
-.check{
-    width: 90px !important;
-    height: 90px !important;
+.checked{
     margin: 0 auto;
     position: absolute;
     top: 0;

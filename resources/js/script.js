@@ -26,6 +26,10 @@ bundles = [{ "productCode": "S1000001", "productName": "와퍼 세트", "product
 
 productDict = {};
 
+cart = [];
+currentProduct = {};
+
+
 
 initProducts = function (data) {
     products = JSON.parse(data);
@@ -51,6 +55,9 @@ initDict = function () {
         p["categoryName"] = "세트";
         productDict[s] = p;
     });
+
+    defaultSide = productDict["P3000001"];
+    defaultDrink = productDict["P2000001"];
 };
 
 initProducts = function () {
@@ -105,36 +112,75 @@ initProducts = function () {
             let con = $("<div class='modal-select-bundle-container'></div>");
 
             $(con).append(bundleSelect(tmp.productName, tmp.productImage));
-            $(con).append(bundleSelect(productDict["P3000001"].productName, productDict["P3000001"].productImage));
-            $(con).append(bundleSelect(productDict["P2000001"].productName, productDict["P2000001"].productImage));
+            $(con).append(bundleSelect(defaultSide.productName, defaultSide.productImage));
+            $(con).append(bundleSelect(defaultDrink.productName, defaultDrink.productImage));
             $(".modal-select-wrapper").append(con);
+
+
+            $(".side .modal-side-select-proudct").eq(0).click();
+            $(".drink .modal-side-select-proudct").eq(0).click();
+            
+
+            $(".modal-select-bundle-button").eq(1).click(e=>{
+                $(".side").removeClass("hidden");
+                console.log($(".side"))
+            })
+            $(".modal-select-bundle-button").eq(2).click(e=>{
+                $(".drink").removeClass("hidden");
+            })
         }
+
         $("#modal-main").removeClass("hidden");
     });
 
 }
 
 initBundleOptions = function(){
-    function bundleHtml(name, price, src){
+    function bundleHtml(name, price, src, dPrice){
         /* <img src="../images/check.png" class="check"/></div> */
-        return $('<div class="modal-side-select-proudct"><div class="modal-side-select-img"><img src="https://d1cua0vf0mkpiy.cloudfront.net/images/menu/normal/2961f7f7-bc00-4f31-b4a0-c2e00ccce52e.png" /><div class="modal-side-select-title">'+name+'</div><div class="modal-side-select-price">'+price+'</div></div>');
+        price = (price-dPrice) >= 0 ? price-dPrice : 0;
+        return $('<div class="modal-side-select-proudct"><div class="modal-side-select-img"><img src="https://d1cua0vf0mkpiy.cloudfront.net/images/menu/normal/2961f7f7-bc00-4f31-b4a0-c2e00ccce52e.png" /></div><div class="modal-side-select-title">'+name+'</div><div class="modal-side-select-price">+'+price+'원</div></div>');
     }
 
-    let side = $('.modal-side .side');
+    let side = $('.side .modal-side-select');
     side.empty();
+    var dPrice = defaultSide.productPrice; //프렌치 프라이 가격
+    console.log(dPrice);
     (products.find(e=> e.categoryName=="사이드").productList.filter(p=>p.isBundle)).forEach(tmp=>{
-        console.log(tmp);
-        let nodes = $(bundleHtml(tmp.productName, tmp.productPrice, tmp.productImage)).data("data", tmp);
-
+        let nodes = $(bundleHtml(tmp.productName, tmp.productPrice, tmp.productImage,dPrice)).data("data", tmp);
         side.append(nodes);
     });
 
+    var dPrice = defaultDrink.productPrice;
+    let drink = $('.drink .modal-side-select');
+    (products.find(e=> e.categoryName=="음료").productList.filter(p=>p.isBundle)).forEach(tmp=>{
+        let nodes = $(bundleHtml(tmp.productName, tmp.productPrice, tmp.productImage,dPrice)).data("data", tmp);
+        drink.append(nodes);
+    });
+
+    $(".modal-side-select-proudct").click(function(){
+        let data = $(this).data("data")
+        let code = data.categoryName=="사이드" ? 1 : 2;
+        let target = $(".modal-select-bundle").eq(code);
+
+        $(this).parent().find(".checked").remove();
+        $(target).find(".modal-select-bundle-img").attr("src", $(this).find("img").attr('src'));
+        $(target).find(".modal-select-bundle-title").text($(this).find(".modal-side-select-title").text());
+
+
+        $(this).find(".modal-side-select-img").append("<img src='../images/check.png' class='checked' />");
+
+    });
+
+    $(".modal-side-button").click(function(){
+        $(this).parent().parent().addClass("hidden");
+    })
 }
 
 initialize = function () {
     initDict();
-    initProducts();
     initBundleOptions();
+    initProducts();
 
     $(".menu-button").click(function () {
         $(".menu-button").removeClass("selected");
