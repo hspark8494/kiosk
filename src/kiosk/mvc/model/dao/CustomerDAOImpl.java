@@ -82,13 +82,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				 int result = rs.getInt(9);
-                 boolean isBundle = false;
-                 if(result==1) isBundle = true;
-				 Bundle bundle = new Bundle(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
-				 Product product = new Product(rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6),
-						  rs.getString(7), rs.getString(8), isBundle);
-				 bundle.setProduct(product);
+				 Bundle bundle = new Bundle(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6));
 				 bundleList.add(bundle);
 			}
 		} finally {

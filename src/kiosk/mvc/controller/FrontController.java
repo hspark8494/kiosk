@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import kiosk.mvc.model.dto.Bundle;
 import kiosk.mvc.model.dto.Category;
-import kiosk.mvc.model.dto.Product;
 import kiosk.mvc.model.service.CustomerService;
 
 /**
@@ -63,7 +63,7 @@ public class FrontController {
 	 */
 	public void initBundles() {
 		try {
-			List<Product> list = cs.selectBundle();
+			List<Bundle> list = cs.selectBundle();
 			String data = gson.toJson(list);
 			System.out.println(data);
 			webEngine.executeScript("initBundles('"+data+"');");

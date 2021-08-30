@@ -24,8 +24,8 @@ public class CustomerService {
 	/**
 	 * 세트의 정보를 가져오는 메소드
 	 * */
-	public List<Product> selectBundle() throws SQLException{
-		return customerDAO.selectBundle().stream().map(Bundle::toBundleWarpper).collect(Collectors.toList());
+	public List<Bundle> selectBundle() throws SQLException{
+		return customerDAO.selectBundle();
 	}
 	
 	/**

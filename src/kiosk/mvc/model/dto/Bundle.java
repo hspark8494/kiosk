@@ -6,7 +6,6 @@ public class Bundle {
 	private String bundleDetails; //세트 설명
 	private int bundlePrice; //세트 가격
 	private String bundleImage; //세트 이미지 URL
-	private Product product;
 	private String productCode;
 	
 	public Bundle() {}
@@ -52,12 +51,6 @@ public class Bundle {
 	public void setBundleImage(String bundleImage) {
 		this.bundleImage = bundleImage;
 	}
-	public Product getProduct() {
-		return product;
-	}
-	public void setProduct(Product product) {
-		this.product = product;
-	}	
 	public String getProductCode() {
 		return productCode;
 	}
@@ -71,7 +64,4 @@ public class Bundle {
 				+ ", bundlePrice=" + bundlePrice + ", bundleImage=" + bundleImage + "]";
 	}	
 	
-	public BundleWrapper toBundleWarpper(){
-		return new BundleWrapper(this);
-	}
 }
