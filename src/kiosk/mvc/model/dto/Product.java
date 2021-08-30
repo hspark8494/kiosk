@@ -1,7 +1,5 @@
 package kiosk.mvc.model.dto;
 
-import java.util.List;
-
 public class Product {
 	private String productCode; //상품코드
 	private String productName; //상품 이름
