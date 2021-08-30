@@ -55,6 +55,8 @@ initDict = function () {
         p["categoryName"] = "세트";
         tmp["categoryCode"] = "C000";
         tmp["categoryName"] = "세트";
+        tmp.bundle = p;
+
 
         productDict[tmp.productCode] = tmp;
         // let s = p.productCode;
@@ -80,7 +82,20 @@ initProducts = function () {
 
 
     bundleSelect = function (title, src) {
-        return $('<div class="modal-select-bundle"><div class="modal-select-bundle-img"><img src="' + src + '" /></div><div class="modal-select-bundle-title">' + title + '</div><button class="modal-select-bundle-button">변경</button></div>');
+        return $('<div class="modal-select-bundle"><div class="modal-select-bundle-img"><img src="' + IMG_PATH + src + '" /></div><div class="modal-select-bundle-title">' + title + '</div><button class="modal-select-bundle-button">변경</button></div>');
+    }
+
+    modalSelect = function(data){
+        let container = $('<div class="modal-select-sub"></div>');
+        let content = $('<div class="modal-select-content">');
+        $(content).append('<div class="modal-select-sub-title hgg99">' + data.productName + '</div>');
+        $(content).append('<div>' + data.productDetails);
+        $(content).append('<div class="modal-select-sub-price hgg99 price">' + data.productPrice + '</div>');
+        //option.productCode
+        $(container).append(content).append($('<div class="modal-select-sub-img"><img src=""/></div>'));
+        $(container).data("data", data);
+        $(container).click(e=>addCart(data));
+        return container;
     }
 
 
@@ -94,7 +109,8 @@ initProducts = function () {
 
         if (tmp.categoryName == "세트") {
             let con = $("<div class='modal-select-bundle-container'></div>");
-            $(con).append(bundleSelect(tmp.productName, tmp.productImage));
+            let orgin = tmp.bundle.productCode;
+            $(con).append(bundleSelect(productDict[orgin].productName, productDict[orgin].productImage));
             $(con).append(bundleSelect(defaultSide.productName, defaultSide.productImage));
             $(con).append(bundleSelect(defaultDrink.productName, defaultDrink.productImage));
             $(".modal-select-wrapper").append(con);
@@ -116,20 +132,12 @@ initProducts = function () {
             for (pid in productDict) {
                 let option = productDict[pid];
                 if (option.productOptions == tmp.productCode) {
-                    let container = $('<div class="modal-select-sub"></div>');
 
-                    let content = $('<div class="modal-select-content">');
-                    $(content).append('<div class="modal-select-sub-title hgg99">' + option.productName + '</div>');
-                    $(content).append('<div>' + option.productDetails);
-                    $(content).append('<div class="modal-select-sub-price hgg99 price">' + option.productPrice + '</div>');
-                    //option.productCode
-                    $(container).append(content).append($('<div class="modal-select-sub-img"><img src=""/></div>'));
-                    $(container).data("data", option);
-                    $(container).click(e=>addCart(option));
-                    $(selector).append(container);
+                    $(selector).append(modalSelect(option));
                 }
             }
             if ($(selector).find(".modal-select-sub").length >= 1) {
+                $(selector).prepend(modalSelect(tmp));
                 $(".modal-select-wrapper").append(selector);
             }else{
                 $(".modal-add").click();
@@ -144,9 +152,8 @@ initProducts = function () {
 
 initBundleOptions = function () {
     function bundleHtml(name, price, src, dPrice) {
-        /* <img src="../images/check.png" class="check"/></div> */
         price = (price - dPrice) >= 0 ? price - dPrice : 0;
-        return $('<div class="modal-side-select-proudct"><div class="modal-side-select-img"><img src="https://d1cua0vf0mkpiy.cloudfront.net/images/menu/normal/2961f7f7-bc00-4f31-b4a0-c2e00ccce52e.png" /></div><div class="modal-side-select-title">' + name + '</div><div class="modal-side-select-price">+' + price + '원</div></div>');
+        return $('<div class="modal-side-select-proudct"><div class="modal-side-select-img"><img src="'+IMG_PATH+src+'" /></div><div class="modal-side-select-title">' + name + '</div><div class="modal-side-select-price">+' + price + '원</div></div>');
     }
 
     let side = $('.side .modal-side-select');
@@ -170,7 +177,7 @@ initBundleOptions = function () {
         let target = $(".modal-select-bundle").eq(code);
 
         $(this).parent().find(".checked").remove();
-        $(target).find(".modal-select-bundle-img").attr("src", $(this).find("img").attr('src'));
+        $(target).find(".modal-select-bundle-img img").attr("src", $(this).find("img").attr('src'));
         $(target).find(".modal-select-bundle-title").text($(this).find(".modal-side-select-title").text());
 
 
