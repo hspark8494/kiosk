@@ -74,21 +74,40 @@ initProducts = function () {
     $(".menu-button:nth-child(1)").click();
 
 
-    bundleSelect = function (title,src) {
-        return $('<div class="modal-select-bundle"><div class="modal-select-bundle-img"><img src="'+src+'" /></div><div class="modal-select-bundle-title">'+title+'</div><button class="modal-select-bundle-button">변경</button></div>');
+    bundleSelect = function (title, src) {
+        return $('<div class="modal-select-bundle"><div class="modal-select-bundle-img"><img src="' + src + '" /></div><div class="modal-select-bundle-title">' + title + '</div><button class="modal-select-bundle-button">변경</button></div>');
     }
 
 
     $(".product-wrapper").click(function () {
         let tmp = $(this).data("data");
+        selectedData = tmp;
         $(".modal-text-title").text(tmp.productName);
         $(".modal-text-content").text(tmp.productDetails ? tmp.productDetails : "");
         $(".modal-banner-img img").attr("src", tmp.productImage);
         $(".modal-select-wrapper").empty();
 
-        if (tmp.categoryName != "세트") {
-            let selector = $("<div class='modal-select'></div>");
+        if (tmp.categoryName == "세트") {
+            let con = $("<div class='modal-select-bundle-container'></div>");
+            $(con).append(bundleSelect(tmp.productName, tmp.productImage));
+            $(con).append(bundleSelect(defaultSide.productName, defaultSide.productImage));
+            $(con).append(bundleSelect(defaultDrink.productName, defaultDrink.productImage));
+            $(".modal-select-wrapper").append(con);
 
+
+            $(".side .modal-side-select-proudct").eq(0).click();
+            $(".drink .modal-side-select-proudct").eq(0).click();
+
+
+            $(".modal-select-bundle-button").eq(1).click(e => {
+                $(".side").removeClass("hidden");
+            })
+            $(".modal-select-bundle-button").eq(2).click(e => {
+                $(".drink").removeClass("hidden");
+            })
+
+        } else {
+            let selector = $("<div class='modal-select'></div>");
             for (pid in productDict) {
                 let option = productDict[pid];
                 if (option.productOptions == tmp.productCode) {
@@ -101,35 +120,16 @@ initProducts = function () {
                     //option.productCode
                     $(container).append(content).append($('<div class="modal-select-sub-img"><img src=""/></div>'));
                     $(container).data("data", option);
-
-                    console.log(container);
+                    $(container).click(e=>addCart(option));
                     $(selector).append(container);
-                    console.log(selector);
                 }
             }
-            if (selector.length >= 1) {
+            if ($(selector).find(".modal-select-sub").length >= 1) {
                 $(".modal-select-wrapper").append(selector);
+            }else{
+                $(".modal-add").click();
+                return;
             }
-        } else {
-            let con = $("<div class='modal-select-bundle-container'></div>");
-
-            $(con).append(bundleSelect(tmp.productName, tmp.productImage));
-            $(con).append(bundleSelect(defaultSide.productName, defaultSide.productImage));
-            $(con).append(bundleSelect(defaultDrink.productName, defaultDrink.productImage));
-            $(".modal-select-wrapper").append(con);
-
-
-            $(".side .modal-side-select-proudct").eq(0).click();
-            $(".drink .modal-side-select-proudct").eq(0).click();
-            
-
-            $(".modal-select-bundle-button").eq(1).click(e=>{
-                $(".side").removeClass("hidden");
-                console.log($(".side"))
-            })
-            $(".modal-select-bundle-button").eq(2).click(e=>{
-                $(".drink").removeClass("hidden");
-            })
         }
 
         $("#modal-main").removeClass("hidden");
@@ -137,32 +137,31 @@ initProducts = function () {
 
 }
 
-initBundleOptions = function(){
-    function bundleHtml(name, price, src, dPrice){
+initBundleOptions = function () {
+    function bundleHtml(name, price, src, dPrice) {
         /* <img src="../images/check.png" class="check"/></div> */
-        price = (price-dPrice) >= 0 ? price-dPrice : 0;
-        return $('<div class="modal-side-select-proudct"><div class="modal-side-select-img"><img src="https://d1cua0vf0mkpiy.cloudfront.net/images/menu/normal/2961f7f7-bc00-4f31-b4a0-c2e00ccce52e.png" /></div><div class="modal-side-select-title">'+name+'</div><div class="modal-side-select-price">+'+price+'원</div></div>');
+        price = (price - dPrice) >= 0 ? price - dPrice : 0;
+        return $('<div class="modal-side-select-proudct"><div class="modal-side-select-img"><img src="https://d1cua0vf0mkpiy.cloudfront.net/images/menu/normal/2961f7f7-bc00-4f31-b4a0-c2e00ccce52e.png" /></div><div class="modal-side-select-title">' + name + '</div><div class="modal-side-select-price">+' + price + '원</div></div>');
     }
 
     let side = $('.side .modal-side-select');
     side.empty();
     var dPrice = defaultSide.productPrice; //프렌치 프라이 가격
-    console.log(dPrice);
-    (products.find(e=> e.categoryName=="사이드").productList.filter(p=>p.isBundle)).forEach(tmp=>{
-        let nodes = $(bundleHtml(tmp.productName, tmp.productPrice, tmp.productImage,dPrice)).data("data", tmp);
+    (products.find(e => e.categoryName == "사이드").productList.filter(p => p.isBundle)).forEach(tmp => {
+        let nodes = $(bundleHtml(tmp.productName, tmp.productPrice, tmp.productImage, dPrice)).data("data", tmp);
         side.append(nodes);
     });
 
     var dPrice = defaultDrink.productPrice;
     let drink = $('.drink .modal-side-select');
-    (products.find(e=> e.categoryName=="음료").productList.filter(p=>p.isBundle)).forEach(tmp=>{
-        let nodes = $(bundleHtml(tmp.productName, tmp.productPrice, tmp.productImage,dPrice)).data("data", tmp);
+    (products.find(e => e.categoryName == "음료").productList.filter(p => p.isBundle)).forEach(tmp => {
+        let nodes = $(bundleHtml(tmp.productName, tmp.productPrice, tmp.productImage, dPrice)).data("data", tmp);
         drink.append(nodes);
     });
 
-    $(".modal-side-select-proudct").click(function(){
+    $(".modal-side-select-proudct").click(function () {
         let data = $(this).data("data")
-        let code = data.categoryName=="사이드" ? 1 : 2;
+        let code = data.categoryName == "사이드" ? 1 : 2;
         let target = $(".modal-select-bundle").eq(code);
 
         $(this).parent().find(".checked").remove();
@@ -174,10 +173,50 @@ initBundleOptions = function(){
 
     });
 
-    $(".modal-side-button").click(function(){
+    $(".modal-side-button").click(function () {
         $(this).parent().parent().addClass("hidden");
     })
 }
+
+updateCart = function () {
+    let q = 0;
+    let price = 0;
+    cart.forEach(e => {
+        q = q + e.qty;
+        price = price + e.price;
+    });
+    $(".cart-badge").text(q);
+    $(".cart-price").text(addComma(price));
+}
+
+cartRowHtml = function (pName, price) {
+
+    return $('<tr><td>' + pName + '</td><td><i class="fas fa-minus-square"></i><span class="cart-item-qty">1</span><i class="fas fa-plus-square"></i></td><td class="price">' + addComma(price) + '</td><td><span class="close">&times;</span></td></tr>');
+}
+
+addCart = function (data) {
+    let cartTarget = cart.find(e => e.data.productCode == data.productCode);
+
+    if (cartTarget == undefined) {
+        let tmp = cartRowHtml(data.productName, data.productPrice);
+        $(".table-cart tbody").append(cartRowHtml(data.productName, data.productPrice));
+        cart.push({
+            "name": data.productName,
+            "data": data,
+            "price": data.productPrice,
+            "qty": 1
+        });
+
+    } else {
+        cartTarget.qty++;
+    }
+
+    $(".modal").addClass("hidden");
+    updateCart();
+}
+
+
+
 
 initialize = function () {
     initDict();
@@ -195,6 +234,9 @@ initialize = function () {
 
     $(".menu-button:nth-child(1)").click();
 
+    $(".modal-add").click(function(){
+        addCart(selectedData);
+    })
 
     $(".fa-minus-square").click(function () {
         let qty = $(this).parent().find(".cart-item-qty");
