@@ -134,8 +134,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	/**
 	 * 주문 상세 내역을 저장하는 메소드
-	 * insert.ordersDetails=insert into orders_details(orders_details_code, orders_code, product_code, bundle_code, orders_details_qty)
-	 * values(orders_details_seq.nextval, orders_seq.currval, ?, ?, ?)
+	 * insert into orders_details(orders_details_code, orders_code, product_code, product_code2, bundle_code, orders_details_qty) 
+	 * values(orders_details_seq.nextval, orders_seq.currval, ?, ?, ?, ?)
 	 * */
 	public int[] intsertOrdersDetails(Connection con, Orders orders) throws SQLException {
 		PreparedStatement ps = null;
@@ -146,8 +146,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 			for(OrdersDetails ordersDetails : orders.getOrdersDetailsList()) {
 				Product product = selectProductByProductCode(ordersDetails.getProductCode()); 
 				ps.setString(1, ordersDetails.getProductCode());
-				ps.setString(2, ordersDetails.getBundleCode());
-				ps.setInt(3, ordersDetails.getOrdersDetailsQTY());
+				ps.setString(2, ordersDetails.getProductCode2());
+				ps.setString(3, ordersDetails.getBundleCode());
+				ps.setInt(4, ordersDetails.getOrdersDetailsQTY());
 				ps.addBatch();
 				ps.clearParameters();
 			}
@@ -185,5 +186,22 @@ public class CustomerDAOImpl implements CustomerDAO {
 		}
 		
 		return product;
+	}
+	
+	/**
+	 * 상품 총구매금액 구하기
+	 * */
+	public int getTotalAmount(Orders orders) throws SQLException {
+		List<OrdersDetails> ordersDetailsList = orders.getOrdersDetailsList();
+	    int total = 0;
+	    
+		for(OrdersDetails detail : ordersDetailsList) {
+			Product product = selectProductByProductCode(detail.getProductCode());
+			if(product == null) throw new SQLException("상품번호 오류입니다. 주문 실패!");
+			
+	    	total += detail.getOrdersDetailsQTY() * product.getProductPrice() ;
+	    }
+		
+		return total;
 	}
 }
