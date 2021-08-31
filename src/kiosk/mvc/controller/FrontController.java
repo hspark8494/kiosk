@@ -1,10 +1,12 @@
 package kiosk.mvc.controller;
 
+import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -28,7 +30,7 @@ public class FrontController {
 	private WebView webView;
 	private WebEngine webEngine;
 
-	private Gson gson = new Gson();
+	
 
 	private FrontController() {
 	};
@@ -51,6 +53,7 @@ public class FrontController {
 	 * WebView의 상품목록을 초기화 시킵니다.
 	 */
 	public void initProducts() {
+	 Gson gson = new Gson();
 		try {
 			List<Category> list = cs.selectProductByCategory();
 			String data = gson.toJson(list);
@@ -69,6 +72,7 @@ public class FrontController {
 	public void initBundles() {
 		try {
 			List<Bundle> list = cs.selectBundle();
+			Gson gson = new Gson();
 			String data = gson.toJson(list);
 			System.out.println(data);
 			webEngine.executeScript("initBundles('"+data+"');");
@@ -89,10 +93,13 @@ public class FrontController {
 	}
 	
 	
-	public void insertOrders(String json) {
-		System.out.println("PAY : "  + json);
-		List<OrdersDetails> list = gson.fromJson(json, ArrayList.class);
+	public void insertOrders(String input) {
+		Gson gson = new Gson();
+		
+		Type listType = new TypeToken<ArrayList<OrdersDetails>>(){}.getType();
+		List<OrdersDetails> list = gson.fromJson(input.toString(), listType);
 		Orders orders = new Orders();
+		orders.setOrdersDetailsList(list);
 		try {
 			cs.insertOrders(orders);
 			System.out.println(orders);

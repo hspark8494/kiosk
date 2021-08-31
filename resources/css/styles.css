@@ -12,6 +12,9 @@
     font-style: normal;
 }
 
+
+
+
 /* font-family: 'Black Han Sans', sans-serif; */
 * {
     font: normal 16px 'HGG', 'Malgun Gothic', 'dotum', sans-serif;
@@ -352,6 +355,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'IBM Plex Sans KR';
 }
 
 .cart-text-wrapper {
@@ -370,12 +374,14 @@ html {
 }
 
 .cart-text div:nth-child(1) {
-    font-size: 18px;
+    
+    font-size: 20px;
     color: white;
-    font-weight: 800;
     align-items: center;
     justify-content: center;
     text-shadow: 0px 0px 1px rgb(0, 0, 0);
+    font-family: 'IBM Plex Sans KR';
+    font-weight: 800;
 }
 
 .cart-badge {
@@ -388,7 +394,8 @@ html {
     font-size: 14px;
     position: relative;
     color: white;
-    font-weight: bold;
+    font-family: 'IBM Plex Sans KR';
+    font-weight: 800;
     margin: 0px 5px;
     text-shadow: 0px 0px 1px rgb(0, 0, 0);
 }
@@ -399,6 +406,8 @@ html {
     font-weight: bold;
     text-align: center;
     letter-spacing: 1px;
+    font-family: 'IBM Plex Sans KR';
+    font-weight: 800;
 
 }
 
@@ -824,12 +833,13 @@ td {
 }
 
 .modal-select-sub-img {
-    flex-grow: 1000;
+    width: 50%;
+    overflow: hidden;
     text-align: center;
 }
 
 .modal-select-sub-img img {
-    width: auto;
+    width: 200px !important;
     height: 100%;
 }
 
