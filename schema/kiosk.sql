@@ -44,6 +44,7 @@ CREATE TABLE ORDERS_DETAILS(
     ORDERS_DETAILS_CODE VARCHAR2(10) PRIMARY KEY,
     ORDERS_CODE VARCHAR2(10) NOT NULL REFERENCES ORDERS(ORDERS_CODE),
     PRODUCT_CODE VARCHAR2(10) REFERENCES PRODUCT(PRODUCT_CODE),
+    PRODUCT_CODE2 VARCHAR2(10) REFERENCES PRODUCT(PRODUCT_CODE),
     BUNDLE_CODE VARCHAR2(10) REFERENCES BUNDLE(BUNDLE_CODE),
     ORDERS_DETAILS_QTY NUMBER(2) DEFAULT 1 NOT NULL
 );
@@ -136,6 +137,9 @@ SELECT * FROM bundle;
 SELECT * FROM orders;
 SELECT * FROM orders_details;
 
+select orders_code, orders_price, orders_date, orders_details_code, product_code, product_name, bundle_code, orders_details_qty from orders natural join orders_details natural join product
+
+
 select orders.orders_code, orders.orders_price, orders.orders_date,
        sum(orders.orders_price) over (partition by orders.orders_code order by orders.orders_date)
 from orders
@@ -149,3 +153,5 @@ insert into orders(ORDERS_CODE,ORDERS_PRICE,ORDERS_DATE) values(ORDERS_SEQ.nextv
 
 insert into ORDERS_DETAILS(ORDERS_DETAILS_CODE,ORDERS_CODE,PRODUCT_CODE,BUNDLE_CODE,ORDERS_DETAILS_QTY) values(ORDERS_DETAILS_SEQ.nextval,ORDERS_SEQ.currval, 'P1001','S1001',1);
 insert into ORDERS_DETAILS(ORDERS_DETAILS_CODE,ORDERS_CODE,PRODUCT_CODE,BUNDLE_CODE,ORDERS_DETAILS_QTY) values(ORDERS_DETAILS_SEQ.nextval,ORDERS_SEQ.currval, 'P1002','S1002',2);
+
+select sum(orders_details.orders_details_qty) 수량, sum(orders.orders_price) 매출 from orders natural join orders_details  where  to_char(ORDERS_DATE, 'yy/mm/dd' ) = '21/08/30';
