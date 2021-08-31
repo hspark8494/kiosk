@@ -321,17 +321,17 @@ initialize = function () {
     });
 
 
-
     $(".pay-close").click(function () {
-        $("#pay-modal").slideDown("slow", function () {
-            $(".pay-list").remove();
-            $(this).addClass("hidden");
-        })
+        $("#pay-modal").animate({ "opacity": 0 }, function () {
+            $(this).addClass("hidden").css({ "opacity": 1 });
+        });
     })
 
     $(".pay-button").click(function () {
         if ($(".cart-list").length >= 1) {
-            $("#pay-modal").removeClass("hidden");
+
+         $("#pay-modal").removeClass("hidden").css({ "opacity": 0 }).animate({ "opacity": 1 });
+
 
             $(".pay-list").remove();
 
@@ -372,6 +372,7 @@ initialize = function () {
         console.log(orderList);
         controller.insertOrders(JSON.stringify(orderList));
         $(".cart-list").remove();
+        updateCart();
         $(".pay-close").click();
         $(".pay-modal-amount").text("");
         $(".pay-modal-total-price").text("");

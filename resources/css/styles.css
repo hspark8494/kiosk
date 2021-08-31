@@ -1089,7 +1089,7 @@ td {
 
 .play-list-header{
     display: flex;
-    margin: 5px;
+    padding-top: 5px;
     height: 30px;
     flex-wrap: nowrap;
 }
@@ -1130,10 +1130,16 @@ td {
     width:30%;
     text-align: center;
 }
+.pay-list:nth-child(1){
+    padding-top: 5px;
+}
 
 .pay-list-thumb img{
     max-width: 80px;
     max-height: 80px;
+}
+.pay-list:hover{
+    background-color: #f1f1f1;
 }
 
 .pay-modal-footer{
