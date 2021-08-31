@@ -23,7 +23,7 @@ public class MainApp extends Application {
 
 		BrowserPane pane = new BrowserPane("resources/html/index.html", x, y);
 
-		//System.setProperty("prism.lcdtext", "false");
+		System.setProperty("prism.lcdtext", "false");
 
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
