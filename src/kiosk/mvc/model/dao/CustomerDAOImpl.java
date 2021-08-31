@@ -229,7 +229,18 @@ public class CustomerDAOImpl implements CustomerDAO {
 				Bundle bundle = selectBundleByBundleCode(ordersDetails.getBundleCode());
 				if(bundle == null) throw new SQLException("세트번호 오류입니다. 주문 실패!");
 				
+				int dft = 4900;
+				Product product = selectProductByProductCode(ordersDetails.getProductCode());
+				int price1 = product.getProductPrice();
+				product = selectProductByProductCode(ordersDetails.getProductCode2());
+				int price2 = product.getProductPrice();
+				
+				int sum = price1 + price2; //2800 + 6300 = 9100원
+				if(dft < sum) dft = sum - dft; //9100 - 4900 = 4200
+				else dft = 0;
+				
 	    		total += ordersDetails.getOrdersDetailsQTY() * bundle.getBundlePrice() ;
+				total = total + dft; //세트값 + 4200
 			}
 	    }
 		

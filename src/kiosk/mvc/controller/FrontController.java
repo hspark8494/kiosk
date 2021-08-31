@@ -102,7 +102,6 @@ public class FrontController {
 		orders.setOrdersDetailsList(list);
 		try {
 			cs.insertOrders(orders);
-			System.out.println(orders);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
