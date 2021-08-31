@@ -1,5 +1,7 @@
 package kiosk.mvc.controller;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -8,6 +10,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import kiosk.mvc.model.dto.Bundle;
 import kiosk.mvc.model.dto.Category;
+import kiosk.mvc.model.dto.Orders;
+import kiosk.mvc.model.dto.OrdersDetails;
 import kiosk.mvc.model.service.CustomerService;
 
 /**
@@ -83,9 +87,17 @@ public class FrontController {
 		webEngine.executeScript("initialize()");
 	}
 	
-	public void insertOrders(String json) {
-		System.out.println(json);
-	}
 	
-
+	public void insertOrders(String json) {
+		System.out.println("PAY : "  + json);
+		List<OrdersDetails> list = gson.fromJson(json, ArrayList.class);
+		Orders orders = new Orders();
+		try {
+			cs.insertOrders(orders);
+			System.out.println(orders);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

@@ -43,17 +43,15 @@ public class MainApp extends Application {
 		Worker<Void> worker= pane.getWebEngine().getLoadWorker();
 		
 		
-//		worker.stateProperty().addListener((ob, ov, nv) -> {
-//			if (nv == Worker.State.SUCCEEDED) {
-//				fc.initialize();
-//			}
-//		});
+		worker.stateProperty().addListener((ob, ov, nv) -> {
+			if (nv == Worker.State.SUCCEEDED) {
+				fc.initialize();
+			}
+		});
 		
-	
 		worker.stateProperty().addListener((ob, ov, nv) -> {
             if (nv == Worker.State.SUCCEEDED) {
                 JSObject jsobj = (JSObject) fc.getWebView().getEngine().executeScript("window");
-
                 jsobj.setMember("controller", fc);
             }
 		});
