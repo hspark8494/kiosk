@@ -13,6 +13,7 @@ import kiosk.mvc.model.dto.Category;
 import kiosk.mvc.model.dto.Orders;
 import kiosk.mvc.model.dto.OrdersDetails;
 import kiosk.mvc.model.service.CustomerService;
+import kiosk.mvc.model.service.CustomerServiceImpl;
 
 /**
  * WebView를 제어하는 컨트롤러
@@ -23,7 +24,7 @@ import kiosk.mvc.model.service.CustomerService;
  */
 public class FrontController {
 	private static FrontController instance = new FrontController();
-	private CustomerService cs = new CustomerService();
+	private CustomerService cs = new CustomerServiceImpl();
 	private WebView webView;
 	private WebEngine webEngine;
 

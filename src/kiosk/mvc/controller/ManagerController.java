@@ -7,11 +7,12 @@ import kiosk.mvc.model.dto.Bundle;
 import kiosk.mvc.model.dto.Orders;
 import kiosk.mvc.model.dto.Product;
 import kiosk.mvc.model.service.ManagerService;
+import kiosk.mvc.model.service.ManagerServiceImpl;
 import kiosk.mvc.view.ManagerFailView;
 import kiosk.mvc.view.ManagerSuccessView;
 
 public class ManagerController {
-	private ManagerService managerService = new ManagerService();
+	private ManagerService managerService = new ManagerServiceImpl();
 	
 	/**
 	 * 상품 등록
