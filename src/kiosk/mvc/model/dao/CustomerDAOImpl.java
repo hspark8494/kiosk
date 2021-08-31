@@ -107,7 +107,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             con = DbUtil.getConnection();
             con.setAutoCommit(false);
             ps = con.prepareStatement(sql);
-            ps.setInt(1, orders.getOrdersPrice());
+            ps.setInt(1, getTotalAmount(orders));
             result = ps.executeUpdate();
 
             if(result == 0) {
@@ -144,7 +144,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 		try {
 			ps = con.prepareStatement(sql);
 			for(OrdersDetails ordersDetails : orders.getOrdersDetailsList()) {
-				Product product = selectProductByProductCode(ordersDetails.getProductCode()); 
 				ps.setString(1, ordersDetails.getProductCode());
 				ps.setString(2, ordersDetails.getProductCode2());
 				ps.setString(3, ordersDetails.getBundleCode());
@@ -189,17 +188,49 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 	
 	/**
+	 * 세트코드와 일치하는 세트 찾는 메소드
+	 * select.productByProductCode=select * from product where product_code = ?
+	 * */
+	public Bundle selectBundleByBundleCode(String bundleCode) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Bundle bundle = null;
+		String sql = proFile.getProperty("select.bundleByBundleCode");
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, bundleCode);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				bundle = new Bundle(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+			}
+		}finally {
+			DbUtil.close(con, ps, rs);
+		}
+		
+		return bundle;
+	}
+	
+	/**
 	 * 상품 총구매금액 구하기
 	 * */
 	public int getTotalAmount(Orders orders) throws SQLException {
 		List<OrdersDetails> ordersDetailsList = orders.getOrdersDetailsList();
 	    int total = 0;
 	    
-		for(OrdersDetails detail : ordersDetailsList) {
-			Product product = selectProductByProductCode(detail.getProductCode());
-			if(product == null) throw new SQLException("상품번호 오류입니다. 주문 실패!");
+		for(OrdersDetails ordersDetails : ordersDetailsList) {
+			if(ordersDetails.getBundleCode() == null) {
+				Product product = selectProductByProductCode(ordersDetails.getProductCode());
+				if(product == null) throw new SQLException("상품번호 오류입니다. 주문 실패!");
 			
-	    	total += detail.getOrdersDetailsQTY() * product.getProductPrice() ;
+	    		total += ordersDetails.getOrdersDetailsQTY() * product.getProductPrice() ;
+			}else {
+				Bundle bundle = selectBundleByBundleCode(ordersDetails.getBundleCode());
+				if(bundle == null) throw new SQLException("세트번호 오류입니다. 주문 실패!");
+				
+	    		total += ordersDetails.getOrdersDetailsQTY() * bundle.getBundlePrice() ;
+			}
 	    }
 		
 		return total;
