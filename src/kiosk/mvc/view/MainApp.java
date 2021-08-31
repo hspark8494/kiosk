@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import kiosk.mvc.controller.FrontController;
-import kiosk.mvc.view.WebViewUpCallsDemo.Bridge;
 import netscape.javascript.JSObject;
 
 /**
