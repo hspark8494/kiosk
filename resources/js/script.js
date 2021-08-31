@@ -7,7 +7,7 @@ function createProductHtml(product) {
     let img = product.productImage;
     let pName = product.productName;
     let price = product.productPrice;
-    return "<div class='product-wrapper'><div class='product-img-wrapper'><img src='"+IMG_PATH+img+"' />"
+    return "<div class='product-wrapper' data-code='"+product.productCode+"'><div class='product-img-wrapper'><img src='"+IMG_PATH+img+"' />"
         + "</div><p class='product-name'>" + pName + "</p><p class='product-price price'>" + addComma(price) + "</p></div>";
 }
 
@@ -21,7 +21,8 @@ productDict = {};
 
 cart = [];
 currentProduct = {};
-
+selectedSide = {};
+selectedDrink = {};
 
 
 initProducts = function (data) {
@@ -89,10 +90,9 @@ initProducts = function () {
         let container = $('<div class="modal-select-sub"></div>');
         let content = $('<div class="modal-select-content">');
         $(content).append('<div class="modal-select-sub-title hgg99">' + data.productName + '</div>');
-        $(content).append('<div>' + data.productDetails);
+        $(content).append('<div>' + data.productDetails == undefined ? "" : data.productDetails);
         $(content).append('<div class="modal-select-sub-price hgg99 price">' + data.productPrice + '</div>');
-        //option.productCode
-        $(container).append(content).append($('<div class="modal-select-sub-img"><img src=""/></div>'));
+        $(container).append(content).append($('<div class="modal-select-sub-img"><img src="'+IMG_PATH + data.productImage+'"/></div>'));
         $(container).data("data", data);
         $(container).click(e=>addCart(data));
         return container;
@@ -104,7 +104,7 @@ initProducts = function () {
         selectedData = tmp;
         $(".modal-text-title").text(tmp.productName);
         $(".modal-text-content").text(tmp.productDetails ? tmp.productDetails : "");
-        $(".modal-banner-img img").attr("src", tmp.productImage);
+        $(".modal-banner-img img").attr("src", IMG_PATH+tmp.productImage);
         $(".modal-select-wrapper").empty();
 
         if (tmp.categoryName == "세트") {
@@ -151,8 +151,8 @@ initProducts = function () {
 }
 
 initBundleOptions = function () {
-    function bundleHtml(name, price, src, dPrice) {
-        price = (price - dPrice) >= 0 ? price - dPrice : 0;
+    function bundleHtml(name, price, src) {
+        
         return $('<div class="modal-side-select-proudct"><div class="modal-side-select-img"><img src="'+IMG_PATH+src+'" /></div><div class="modal-side-select-title">' + name + '</div><div class="modal-side-select-price">+' + price + '원</div></div>');
     }
 
@@ -160,14 +160,16 @@ initBundleOptions = function () {
     side.empty();
     var dPrice = defaultSide.productPrice; //프렌치 프라이 가격
     (products.find(e => e.categoryName == "사이드").productList.filter(p => p.isBundle)).forEach(tmp => {
-        let nodes = $(bundleHtml(tmp.productName, tmp.productPrice, tmp.productImage, dPrice)).data("data", tmp);
+        tmp.subPrice = (tmp.productPrice - dPrice) >= 0 ? tmp.productPrice - dPrice : 0;
+        let nodes = $(bundleHtml(tmp.productName, tmp.subPrice, tmp.productImage, tmp.subPrice)).data("data", tmp);
         side.append(nodes);
     });
 
     var dPrice = defaultDrink.productPrice;
     let drink = $('.drink .modal-side-select');
     (products.find(e => e.categoryName == "음료").productList.filter(p => p.isBundle)).forEach(tmp => {
-        let nodes = $(bundleHtml(tmp.productName, tmp.productPrice, tmp.productImage, dPrice)).data("data", tmp);
+        tmp.subPrice = (tmp.productPrice - dPrice) >= 0 ? tmp.productPrice - dPrice : 0;
+        let nodes = $(bundleHtml(tmp.productName, tmp.subPrice, tmp.productImage, )).data("data", tmp);
         drink.append(nodes);
     });
 
@@ -177,9 +179,13 @@ initBundleOptions = function () {
         let target = $(".modal-select-bundle").eq(code);
 
         $(this).parent().find(".checked").remove();
+        if(code == 1){
+            selectedSide = data;
+        }else{
+            selectedDrink = data;
+        }
         $(target).find(".modal-select-bundle-img img").attr("src", $(this).find("img").attr('src'));
         $(target).find(".modal-select-bundle-title").text($(this).find(".modal-side-select-title").text());
-
 
         $(this).find(".modal-side-select-img").append("<img src='../images/check.png' class='checked' />");
 
@@ -191,42 +197,98 @@ initBundleOptions = function () {
 }
 
 updateCart = function () {
-    let q = 0;
-    let price = 0;
-    cart.forEach(e => {
-        q = q + e.qty;
-        price = price + e.price;
-    });
-    $(".cart-badge").text(q);
-    $(".cart-price").text(addComma(price));
+    let cartAmount = 0;
+    let cartQty = 0;
+    $(".cart-list").each(function(e){
+        let data = $(this).data("data");
+        let prcie = $(this).data("price");
+        let qty = parseInt($(this).find(".cart-item-qty").text());
+
+        $(this).find(".price").text(addComma(prcie*qty));
+        cartQty += qty;
+        cartAmount = cartAmount+ qty*prcie;
+    })
+    $(".cart-badge").text(cartQty);
+    $(".cart-price").text(addComma(cartAmount));
 }
 
-cartRowHtml = function (pName, price) {
+cartRowHtml = function (data) {
 
-    return $('<tr><td>' + pName + '</td><td><i class="fas fa-minus-square"></i><span class="cart-item-qty">1</span><i class="fas fa-plus-square"></i></td><td class="price">' + addComma(price) + '</td><td><span class="close">&times;</span></td></tr>');
+    return $('<tr class="cart-list"><td>' + data.productName + '</td><td><i class="fas fa-minus-square"></i><span class="cart-item-qty">1</span><i class="fas fa-plus-square"></i></td><td class="price">' + addComma(data.productPrice) + '</td><td><span class="close">&times;</span></td></tr>');
+
 }
 
 addCart = function (data) {
-    let cartTarget = cart.find(e => e.data.productCode == data.productCode);
+    console.log(data)
 
-    if (cartTarget == undefined) {
-        let tmp = cartRowHtml(data.productName, data.productPrice);
-        $(".table-cart tbody").append($(tmp));
-        cart.push({
-            "name": data.productName,
-            "data": data,
-            "price": data.productPrice,
-            "qty": 1
+    let state = false;
+    $($(".cart-list").each(function(e){
+        let tmp = $(this).data("data");
+        let isBundle= tmp.categoryName == "세트" && tmp.productCode==data.productCode && $(this).data("side").productCode == selectedSide.productCode && $(this).data("drink").productCode == productCode
+        if(isBundle || (data.categoryName != "세트" && data.productCode == tmp.productCode)){
+            let qty = $(this).find(".cart-item-qty");
+            $(qty).text(parseInt(qty.text())+1);
+            state = true;
+            return;
+        }
+    }));
+
+    if(!state){    
+        let row = cartRowHtml(data).data("data", data);
+        
+        if(data.categoryName == "세트"){
+            $(row).data("side", selectedSide);
+            $(row).data("drink", selectedDrink);
+            $(row).data("price", data.productPrice + selectedSide.subPrice + selectedDrink.subPrice);
+            console.log(row);
+        }else{
+            $(row).data("price", data.productPrice);
+        }
+
+
+        $(".table-cart tbody").append(row);
+
+        $(row).find(".fa-minus-square").click(function () {
+            let qty = $(this).parent().find(".cart-item-qty");
+            if(qty.text() >=2){
+                $(qty).text(parseInt($(qty).text()) - 1);
+            }
+            updateCart();
         });
 
-    } else {
-        cartTarget.qty++;
+        $(row).find(".fa-plus-square").click(function () {
+            let qty = $(this).parent().find(".cart-item-qty");
+            $(qty).text(parseInt($(qty).text()) + 1);
+            updateCart();
+        });
+
+        $(row).find(".close").click(function(){
+            $(this).parent().parent().remove();
+            updateCart();
+        });
+    
+
     }
+    
+    
+
+    // if (cartTarget == undefined) {
+    //     let tmp = cartRowHtml(data.productName, data.productPrice);
+    //     $(".table-cart tbody").append($(tmp));
+    //     cart.push({
+    //         "name": data.productName,
+    //         "data": data,
+    //         "price": data.productPrice,
+    //         "qty": 1
+    //     });
+
+    // } else {
+    //     cartTarget.qty++;
+    // }
 
     $(".modal").addClass("hidden");
     updateCart();
 }
-
 
 
 
@@ -250,28 +312,22 @@ initialize = function () {
         addCart(selectedData);
     })
 
-    $(".fa-minus-square").click(function () {
-        let qty = $(this).parent().find(".cart-item-qty");
-        $(qty).text(parseInt($(qty).text()) - 1);
-    });
-
-    $(".fa-plus-square").click(function () {
-        let qty = $(this).parent().find(".cart-item-qty");
-        $(qty).text(parseInt($(qty).text()) + 1);
-    });
-
-    $(".close").click(function () {
-        $(this).parent().parent().remove();
-    });
-
     $(".modal-close").click(function () {
         $(".modal").addClass("hidden");
+    });
+
+    $(".pay-button").click(function(){
+        console.log(controller)
+        controller.insertOrder("SEND FROM JS");
     });
 
 }
 
 
 
+
+
 $(document).ready(function () {
 
+    initialize();
 });

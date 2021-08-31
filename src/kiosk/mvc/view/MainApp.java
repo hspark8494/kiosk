@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import kiosk.mvc.controller.FrontController;
+import kiosk.mvc.view.WebViewUpCallsDemo.Bridge;
+import netscape.javascript.JSObject;
 
 /**
  * Kiosk 메인 어플리케이션 클래스
@@ -36,17 +38,25 @@ public class MainApp extends Application {
 
 		stage.show();
 		
-		FrontController.getInstance().setWebView(pane.getWebView());
+		FrontController fc = FrontController.getInstance();
+		fc.setWebView(pane.getWebView());
 		Worker<Void> worker= pane.getWebEngine().getLoadWorker();
 		
-		FrontController fc = FrontController.getInstance();
 		
+//		worker.stateProperty().addListener((ob, ov, nv) -> {
+//			if (nv == Worker.State.SUCCEEDED) {
+//				fc.initialize();
+//			}
+//		});
+		
+	
 		worker.stateProperty().addListener((ob, ov, nv) -> {
-			if (nv == Worker.State.SUCCEEDED) {
-				fc.initialize();
-			}
+            if (nv == Worker.State.SUCCEEDED) {
+                JSObject jsobj = (JSObject) fc.getWebView().getEngine().executeScript("window");
+
+                jsobj.setMember("controller", fc);
+            }
 		});
-		
 	}
 
 	public static void main(String[] args) {
