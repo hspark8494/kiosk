@@ -321,22 +321,45 @@ initialize = function () {
     });
 
 
-
+    
     $(".pay-close").click(function(){
         $("#pay-modal").slideDown("slow", function(){
+            $(".pay-list").remove();
             $(this).addClass("hidden");
         })
     })
 
     $(".pay-button").click(function () {
-        orderList = [];
-
         $("#pay-modal").removeClass("hidden");
 
         if ($(".cart-list").length < 1) {
             return;
         }
 
+        console.log("asdf");
+
+
+        $(".pay-list").remove();
+
+        let totalPrice = 0;
+        let totalQty = 0;
+        $(".cart-list").each(function (e) {
+            let name = $(this).find("td").eq(0).text();
+            let qty = parseInt($(this).find(".cart-item-qty").text());
+            let price = parseInt($(this).find(".price").text().replace(",",""));
+            let src = $(this).data("data").productImage;
+            totalPrice = totalPrice + price;
+            totalQty = totalQty + qty;
+            $('.pay-list-wrapper').append($('<dlv class="pay-list"><div class="pay-list-thumb"><img src="'+IMG_PATH+src+'"></div><div class="pay-list-name">'+name+'</div><div class="pay-list-qty">'+qty+'</div><div class="pay-list-price price">&nbsp;'+addComma(price)+'</div></dlv>'));
+        });
+
+        $(".pay-modal-amount").text(totalQty +" 개");
+        $(".pay-modal-total-price").text(addComma(totalPrice) + " 원");
+        
+    });
+
+    $(".pay-ok").click(function(){
+        orderList = [];
         $(".cart-list").each(function (e) {
             let data = $(this).data("data");
             let ordersDetails = {};
@@ -352,10 +375,11 @@ initialize = function () {
             orderList.push(ordersDetails);
 
         });
-
-        //controller.insertOrders(JSON.stringify(orderList));
+        console.log(orderList);
+        controller.insertOrders(JSON.stringify(orderList));
         $(".cart-list").remove();
-    });
+        $(".pay-close").click();
+    })
 
 }
 

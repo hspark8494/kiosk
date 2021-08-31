@@ -1054,6 +1054,7 @@ td {
     box-sizing: border-box;
     padding: 10px;
     flex-grow: 100;
+    overflow: auto;
 }
 
 /* The Close Button */
@@ -1140,7 +1141,8 @@ td {
     justify-content: flex-end;
     padding: 10px;
     align-items: center;
-    background-color: lightgray;
+    background-color: rgb(228, 228, 228);
+    border-top:1px dashed rgb(113 113 113);
 }
 .pay-modal-total-price{
     width: 30%;
@@ -1148,7 +1150,7 @@ td {
     font-size: 18px;
     font-family: "HGG99";
     letter-spacing: 1px;
-    color: #000072;
+    color: black;
 }
 
 .pay-modal-amount{
@@ -1156,7 +1158,7 @@ td {
     text-align: center;
     font-size: 18px;
     font-family: "HGG99";
-    color: #000072;
+    color: black;
 }
 
 /*
