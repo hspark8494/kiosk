@@ -20,10 +20,16 @@ public class ManagerSuccessView {
 	public static void ordersPrint(List<Orders> ordersList) {
 		System.out.println("********** 총 주문량 : " + ordersList.size() + "개 **********");
 		for(Orders orders : ordersList) {
-			System.out.println("주문번호 " + orders.getOrdersCode() + "의 주문금액 : " + orders.getOrdersPrice() + " 주문날짜 " + orders.getOrdersDate());
+			System.out.println(orders);
 			
 			for(OrdersDetails ordersDetails : orders.getOrdersDetailsList()) {
-				System.out.println(ordersDetails);
+				if(ordersDetails.getBundleCode() != null) {
+					System.out.println(ordersDetails);
+				}else {
+					System.out.println("주문상세번호 " + ordersDetails.getOrdersDetailsCode() + "의 상품 코드 : " + ordersDetails.getProductCode() +
+							" | 주문 수량 : " + ordersDetails.getOrdersDetailsQTY());
+				}
+				
 			}
 			System.out.println();
 		}

@@ -59,7 +59,7 @@ public class FrontController {
 	}
 	
 	/**
-	 * WebView의 세트목록을 초기화 시킵니다.
+	 * WebView의 세트를 초기화 시킵니다.
 	 */
 	public void initBundles() {
 		try {
@@ -73,11 +73,18 @@ public class FrontController {
 		}
 	}
 	
+	
+	/**
+	 * WebView 초기화
+	 */
 	public void initialize() {
 		initProducts();
 		initBundles();
 		webEngine.executeScript("initialize()");
-		
+	}
+	
+	public void insertOrders(String json) {
+		System.out.println(json);
 	}
 	
 
