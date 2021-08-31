@@ -23,7 +23,7 @@ public class MainApp extends Application {
 
 		BrowserPane pane = new BrowserPane("resources/html/index.html", x, y);
 
-		System.setProperty("prism.lcdtext", "false");
+		//System.setProperty("prism.lcdtext", "false");
 
 		Scene scene = new Scene(pane);
 		stage.setScene(scene);
@@ -42,18 +42,18 @@ public class MainApp extends Application {
 		Worker<Void> worker= pane.getWebEngine().getLoadWorker();
 		
 		
-		worker.stateProperty().addListener((ob, ov, nv) -> {
-			if (nv == Worker.State.SUCCEEDED) {
-				fc.initialize();
-			}
-		});
-		
-		worker.stateProperty().addListener((ob, ov, nv) -> {
-            if (nv == Worker.State.SUCCEEDED) {
-                JSObject jsobj = (JSObject) fc.getWebView().getEngine().executeScript("window");
-                jsobj.setMember("controller", fc);
-            }
-		});
+//		worker.stateProperty().addListener((ob, ov, nv) -> {
+//			if (nv == Worker.State.SUCCEEDED) {
+//				fc.initialize();
+//			}
+//		});
+//		
+//		worker.stateProperty().addListener((ob, ov, nv) -> {
+//            if (nv == Worker.State.SUCCEEDED) {
+//                JSObject jsobj = (JSObject) fc.getWebView().getEngine().executeScript("window");
+//                jsobj.setMember("controller", fc);
+//            }
+//		});
 	}
 
 	public static void main(String[] args) {

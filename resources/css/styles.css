@@ -287,20 +287,20 @@ html {
 .product-wrapper p {
     display: block;
     margin-bottom: 0px;
-    font-weight: 800;
 }
 
 .product-name {
     color: #000;
     margin-top: 3px;
     font-size: 16px;
+    font-weight: 800;
 }
 
 .product-price {
-    font-size: 15px;
+    font-size: 16px;
     margin-top: 5px;
     color: #e22219;
-    letter-spacing: 0.5px;
+    font-family: "HGG99";
 }
 
 .product-wrapper:hover {
@@ -355,7 +355,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'IBM Plex Sans KR';
+    font-family: 'HGG99';
 }
 
 .cart-text-wrapper {
@@ -364,7 +364,7 @@ html {
     align-items: center;
     justify-content: center;
     width: 30%;
-    padding: 8px;
+    padding: 6px;
     box-sizing: border-box;
 }
 
@@ -374,14 +374,12 @@ html {
 }
 
 .cart-text div:nth-child(1) {
-    
     font-size: 20px;
     color: white;
     align-items: center;
     justify-content: center;
     text-shadow: 0px 0px 1px rgb(0, 0, 0);
-    font-family: 'IBM Plex Sans KR';
-    font-weight: 800;
+    font-family: 'HGG99';
 }
 
 .cart-badge {
@@ -394,8 +392,7 @@ html {
     font-size: 14px;
     position: relative;
     color: white;
-    font-family: 'IBM Plex Sans KR';
-    font-weight: 800;
+    font-family: 'HGG99';
     margin: 0px 5px;
     text-shadow: 0px 0px 1px rgb(0, 0, 0);
 }
@@ -403,18 +400,17 @@ html {
 .cart-price {
     font-size: 18px;
     color: rgb(255, 230, 0);
-    font-weight: bold;
     text-align: center;
-    letter-spacing: 1px;
-    font-family: 'IBM Plex Sans KR';
-    font-weight: 800;
+    letter-spacing: 1.2px;
+    font-family: "HGG99";
+    transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
 
 }
 
 .cart-line {
-    height: 2px;
+    height: 3px;
     width: 100%;
-    background-color: rgb(235, 235, 235);
+    background-color: rgb(212, 212, 212);
     box-sizing: border-box;
     margin: 4px;
 }
@@ -457,6 +453,7 @@ html {
     text-transform: uppercase;
     left: 0;
     transition: all 0.25s cubic-bezier(0.31, -0.105, 0.43, 1.4);
+    font-family: "HGG99";
 }
 
 .pay-button span:after {
@@ -704,6 +701,7 @@ td {
     background-color: transparent !important;
     color: white;
     font-size: 18px;
+    font-family: "HGG99";
 }
 
 th {
