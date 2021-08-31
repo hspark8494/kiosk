@@ -274,5 +274,4 @@ initialize = function () {
 
 $(document).ready(function () {
 
-    initialize();
 });
