@@ -58,7 +58,17 @@ public class OrdersDetails {
 	
 	@Override
 	public String toString() {
-		return "OrdersDetails [ordersDetailsCode=" + ordersDetailsCode + ", ordersCode=" + ordersCode + ", productCode="
-				+ productCode + ", bundleCode=" + bundleCode + ", ordersDetailsQTY=" + ordersDetailsQTY + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("주문상세번호 ");
+		builder.append(ordersDetailsCode);
+		builder.append("의 세트 코드 : ");
+		builder.append(bundleCode);
+		builder.append(" | 사이드 상품 코드 : ");
+		builder.append(productCode);
+		builder.append(" | 음료 상품 코드 : ");
+		builder.append(productCode2);
+		builder.append(" | 주문 수량 : ");
+		builder.append(ordersDetailsQTY);
+		return builder.toString();
 	}
 }

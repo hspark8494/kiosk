@@ -137,21 +137,11 @@ SELECT * FROM bundle;
 SELECT * FROM orders;
 SELECT * FROM orders_details;
 
-select orders_code, orders_price, orders_date, orders_details_code, product_code, product_name, bundle_code, orders_details_qty from orders natural join orders_details natural join product
-
-
-select orders.orders_code, orders.orders_price, orders.orders_date,
-       sum(orders.orders_price) over (partition by orders.orders_code order by orders.orders_date)
-from orders
-        left join orders_details on orders.orders_code = orders.orders_code
- where  to_char(ORDERS_DATE, 'yy/mm/dd' ) = '21/08/29';
  
- SELECT * FROM (SELECT ROWNUM, (SELECT SUM(ORDERS_DETAILS_QTY) FROM ORDERS_DETAILS) FROM ORDERS NATURAL JOIN ORDERS_DETAILS ORDER BY ORDERS_DATE);
- 
- insert into orders(ORDERS_CODE,ORDERS_PRICE,ORDERS_DATE) values(ORDERS_SEQ.nextval,7000, default);
+ insert into orders(ORDERS_CODE,ORDERS_PRICE,ORDERS_DATE) values(ORDERS_SEQ.nextval,5200, default);
 insert into orders(ORDERS_CODE,ORDERS_PRICE,ORDERS_DATE) values(ORDERS_SEQ.nextval,7600, default);
 
-insert into ORDERS_DETAILS(ORDERS_DETAILS_CODE,ORDERS_CODE,PRODUCT_CODE,BUNDLE_CODE,ORDERS_DETAILS_QTY) values(ORDERS_DETAILS_SEQ.nextval,ORDERS_SEQ.currval, 'P1001','S1001',1);
-insert into ORDERS_DETAILS(ORDERS_DETAILS_CODE,ORDERS_CODE,PRODUCT_CODE,BUNDLE_CODE,ORDERS_DETAILS_QTY) values(ORDERS_DETAILS_SEQ.nextval,ORDERS_SEQ.currval, 'P1002','S1002',2);
+insert into ORDERS_DETAILS(ORDERS_DETAILS_CODE,ORDERS_CODE,PRODUCT_CODE,PRODUCT_CODE2,BUNDLE_CODE,ORDERS_DETAILS_QTY) values(ORDERS_DETAILS_SEQ.nextval,ORDERS_SEQ.currval, 'P1006', NULL,NULL,1);
+insert into ORDERS_DETAILS(ORDERS_DETAILS_CODE,ORDERS_CODE,PRODUCT_CODE,PRODUCT_CODE2,BUNDLE_CODE,ORDERS_DETAILS_QTY) values(ORDERS_DETAILS_SEQ.nextval,ORDERS_SEQ.currval, 'P1019', 'P1034','S1004',2);
 
 select sum(orders_details.orders_details_qty) 수량, sum(orders.orders_price) 매출 from orders natural join orders_details  where  to_char(ORDERS_DATE, 'yy/mm/dd' ) = '21/08/30';

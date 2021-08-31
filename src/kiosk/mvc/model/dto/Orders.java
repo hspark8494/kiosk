@@ -44,7 +44,13 @@ public class Orders {
 	
 	@Override
 	public String toString() {
-		return "Orders [ordersCode=" + ordersCode + ", ordersPrice=" + ordersPrice + ", ordersDate=" + ordersDate
-				+ ", ordersDetailsList=" + ordersDetailsList + "]";
-	}	
+		StringBuilder builder = new StringBuilder();
+		builder.append("주문번호 ");
+		builder.append(ordersCode);
+		builder.append("의 주문 금액 : ");
+		builder.append(ordersPrice);
+		builder.append("원 주문 날짜 :");
+		builder.append(ordersDate);
+		return builder.toString();
+	}
 }
