@@ -10,4 +10,4 @@
 
 <!-- Image -->
 ## 시연이미지 
-![kiosk1](/Users/sungkyu-kim/Desktop/KOSTA/1차프로젝트/시연이미지1.png)
+
