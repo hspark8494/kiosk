@@ -1,1 +1,4 @@
-## kiosk
+---
+layout : single
+title : kiosk
+---
