@@ -538,7 +538,7 @@ html {
 }
 
 .modal-banner {
-    background: url("https://www.burgerking.co.kr/dist/img/bg_prd_detailintro.4e4e1753.png") no-repeat 50%;
+    background: url("../images/bg.png") no-repeat 50%;
     background-size: 105% 105%;
     overflow: hidden;
     display: flex;
