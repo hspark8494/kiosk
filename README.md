@@ -1,3 +1,3 @@
 ---
-title : kiosk
+kiosk
 ---
