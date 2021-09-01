@@ -12,7 +12,7 @@ CREATE TABLE CATEGORY(
 );
 
 CREATE TABLE PRODUCT(
-    PRODUCT_CODE VARCHAR2(10) PRIMARY KEY,
+    PRODUCT_CODE VARCHAR2(10) PRIMARY KEY, 
     PRODUCT_NAME VARCHAR2(50) NOT NULL,
     CATEGORY_CODE VARCHAR2(10) NOT NULL REFERENCES CATEGORY(CATEGORY_CODE),
     PRODUCT_PRICE NUMBER(6) NOT NULL,
@@ -43,7 +43,7 @@ CREATE SEQUENCE ORDERS_SEQ NOCACHE;
 CREATE TABLE ORDERS_DETAILS(
     ORDERS_DETAILS_CODE VARCHAR2(10) PRIMARY KEY,
     ORDERS_CODE VARCHAR2(10) NOT NULL REFERENCES ORDERS(ORDERS_CODE),
-    PRODUCT_CODE VARCHAR2(10) REFERENCES PRODUCT(PRODUCT_CODE),
+    PRODUCT_CODE VARCHAR2(10) REFERENCES PRODUCT(PRODUCT_CODE) ,
     PRODUCT_CODE2 VARCHAR2(10) REFERENCES PRODUCT(PRODUCT_CODE),
     BUNDLE_CODE VARCHAR2(10) REFERENCES BUNDLE(BUNDLE_CODE),
     ORDERS_DETAILS_QTY NUMBER(2) DEFAULT 1 NOT NULL
@@ -62,13 +62,13 @@ INSERT INTO PRODUCT VALUES('P1001','와퍼','C100',7000,'불에 직접 구운 순 쇠고기 
 INSERT INTO PRODUCT VALUES('P1002','치즈 와퍼','C100',7600,'불에 직접 구운 순 쇠고기 패티가 들어간 와퍼에 고소한 치즈까지!','P1002.PNG',NULL,0);
 INSERT INTO PRODUCT VALUES('P1003','불고기 와퍼','C100',7000,'불에 직접 구운 순 쇠고기 패티가 들어간 와퍼에 달콤한 불고기 소스까지!','P1003.PNG',NULL,0);
 INSERT INTO PRODUCT VALUES('P1004','베이컨치즈와퍼','C100',8800,'풍미 가득한 아메리칸 클래식의 완벽한 조화!','P1004.PNG',NULL,0);
-INSERT INTO PRODUCT VALUES('P1005','작화소불고기버거','C100',6800,'패티까지! 진짜 불고기!','P1005.PNG',NULL,0);
-INSERT INTO PRODUCT VALUES('P1006','고추장 소불고기버거','C100',5200,'부드러운 소불고기에 매콤함을 더하다!','P1006.PNG',NULL,0);
+--INSERT INTO PRODUCT VALUES('P1005','작화소불고기버거','C100',6800,'패티까지! 진짜 불고기!','P1005.PNG',NULL,0);
+--INSERT INTO PRODUCT VALUES('P1006','고추장 소불고기버거','C100',5200,'부드러운 소불고기에 매콤함을 더하다!','P1006.PNG',NULL,0);
 INSERT INTO PRODUCT VALUES('P1007','통새우 와퍼','C100',7800,'불맛 가득 순쇠고기, 갈릭페퍼 통새우, 스파이시토마토소스가 더해진 프리미엄 버거','P1007.PNG',NULL,0);
 INSERT INTO PRODUCT VALUES('P1008','콰트로치즈 와퍼','C100',7800,'진짜 불맛을 즐겨라, 4가지 고품격 치즈와 불에 직접 구운 와퍼 패티의 만남!','P1008.PNG',NULL,0);
 INSERT INTO PRODUCT VALUES('P1009','몬스터 와퍼','C100',9400,'불맛 가득 순쇠고기, 치킨, 베이컨에 화끈한 디아블로 소스의 압도적인 맛','P1009.PNG',NULL,0);
 INSERT INTO PRODUCT VALUES('P1010','기네스 와퍼','C100',9400,'기네스 번과 기네스 바비큐 소스의 풍미!','P1010.PNG',NULL,0);
-INSERT INTO PRODUCT VALUES('P1011','기네스 머쉬룸 와퍼','C100',9800,'기네스 번과 기네스 바비큐 소스의 풍미!','P1011.PNG',NULL,0);
+--INSERT INTO PRODUCT VALUES('P1011','기네스 머쉬룸 와퍼','C100',9800,'기네스 번과 기네스 바비큐 소스의 풍미!','P1011.PNG',NULL,0);
 INSERT INTO PRODUCT VALUES('P1012','스태커3 와퍼','C100',11600,'믿고 먹을수 있는 와퍼, 더 크게 도전하세요!','P1012.PNG',NULL,0);
 INSERT INTO PRODUCT VALUES('P1013','스태커4 와퍼','C100',13600,'믿고 먹을수 있는 와퍼, 더 크게 도전하세요!','P1013.PNG',NULL,0);
 
@@ -77,17 +77,17 @@ INSERT INTO PRODUCT VALUES('P1015','코카콜라-라지','C200',2700,'코카-콜라로 더 �
 INSERT INTO PRODUCT VALUES('P1016','코카콜라 제로','C200',2500,'100%짜릿함, 칼로리는 제로!','P1016.PNG',NULL,1);
 INSERT INTO PRODUCT VALUES('P1017','코카콜라 제로-라지','C200',2700,'100%짜릿함, 칼로리는 제로!','P1017.PNG','P1016',1);
 INSERT INTO PRODUCT VALUES('P1018','스프라이트','C200',2500,'나를 깨우는 상쾌함!','P1018.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1019','스프라이트-라지','C200',2700,'나를 깨우는 상쾌함!','P1019.PNG','P1018',1);
+INSERT INTO PRODUCT VALUES('P1019','스프라이트-라지','C200',2700,'나를 깨우는 상쾌함!','P1019.PNG','P1018',0);
 INSERT INTO PRODUCT VALUES('P1020','미네랄 워터','C200',1900,NULL,'P1020.PNG',NULL,1);
 INSERT INTO PRODUCT VALUES('P1021','미닛메이드 오렌지','C200',3400,NULL,'P1021.PNG',NULL,1);
 INSERT INTO PRODUCT VALUES('P1022','씨그램','C200',2500,NULL,'P1022.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1023','씨그램-라지','C200',2700,NULL,'P1023.PNG','P1022',1);
-INSERT INTO PRODUCT VALUES('P1024','제로톡톡 복숭아','C200',2800,'제로 칼로리 100% 천연 과일향 드링크','P1024.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1025','제로톡톡 청포도','C200',2800,'제로 칼로리 100% 천연 과일향 드링크','P1025.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1026','아메리카노','C200',2200,'자연을 담은 버거킹 RA인증커피','P1026.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1027','아이스 아메리카노','C200',2200,'자연을 담은 버거킹 RA인증커피','P1027.PNG','P1026',1);
-INSERT INTO PRODUCT VALUES('P1028','핫초코','C200',2700,'달콤한 초코!','P1028.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1029','아이스 초코','C200',2700,'달콤한 초코!','P1029.PNG','P1028',1);
+INSERT INTO PRODUCT VALUES('P1023','씨그램-라지','C200',2700,NULL,'P1023.PNG','P1022',0);
+INSERT INTO PRODUCT VALUES('P1024','제로톡톡 복숭아','C200',2800,'제로 칼로리 100% 천연 과일향 드링크','P1024.PNG',NULL,0);
+INSERT INTO PRODUCT VALUES('P1025','제로톡톡 청포도','C200',2800,'제로 칼로리 100% 천연 과일향 드링크','P1025.PNG',NULL,0);
+INSERT INTO PRODUCT VALUES('P1026','아메리카노','C200',2200,'자연을 담은 버거킹 RA인증커피','P1026.PNG',NULL,0);
+INSERT INTO PRODUCT VALUES('P1027','아이스 아메리카노','C200',2200,'자연을 담은 버거킹 RA인증커피','P1027.PNG','P1026',0);
+INSERT INTO PRODUCT VALUES('P1028','핫초코','C200',2700,'달콤한 초코!','P1028.PNG',NULL,0);
+INSERT INTO PRODUCT VALUES('P1029','아이스 초코','C200',2700,'달콤한 초코!','P1029.PNG','P1028',0);
 
 INSERT INTO PRODUCT VALUES('P1030','프렌치프라이','C300',2400,'세계최고의 감자만 엄선해서 버거킹만의 비법으로 바삭하게!','P1030.PNG',NULL,1);
 INSERT INTO PRODUCT VALUES('P1031','프렌치프라이-라지','C300',2900,'세계최고의 감자만 엄선해서 버거킹만의 비법으로 바삭하게!','P1031.PNG','P1030',1);
@@ -95,16 +95,16 @@ INSERT INTO PRODUCT VALUES('P1032','어니언링','C300',2700,NULL,'P1032.PNG',NULL,
 INSERT INTO PRODUCT VALUES('P1033','치즈프라이','C300',3300,NULL,'P1033.PNG',NULL,1);
 INSERT INTO PRODUCT VALUES('P1034','21치즈스틱','C300',2400,NULL,'P1034.PNG',NULL,1);
 INSERT INTO PRODUCT VALUES('P1035','너겟킹(4조각)','C300',2700,'바삭~ 촉촉~ 한입에 쏙 부드러운 너겟킹!','P1035.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1036','너겟킹(6조각)','C300',3700,'바삭~ 촉촉~ 한입에 쏙 부드러운 너겟킹!','P1036.PNG','P1035',1);
+INSERT INTO PRODUCT VALUES('P1036','너겟킹(6조각)','C300',3700,'바삭~ 촉촉~ 한입에 쏙 부드러운 너겟킹!','P1036.PNG','P1035',0);
 INSERT INTO PRODUCT VALUES('P1037','바삭킹(2조각)','C300',3500,'매콤하게! 바삭하게 튀긴 치킨윙','P1037.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1038','바삭킹(4조각)','C300',6300,'매콤하게! 바삭하게 튀긴 치킨윙','P1038.PNG','P1037',1);
+INSERT INTO PRODUCT VALUES('P1038','바삭킹(4조각)','C300',6300,'매콤하게! 바삭하게 튀긴 치킨윙','P1038.PNG','P1037',0);
 INSERT INTO PRODUCT VALUES('P1039','크리미모짜볼(5조각)','C300',3000,'겉은 바삭~ 속은 부드러운 크림치즈가 쏘옥, 크리미모짜볼!','P1039.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1040','크리미모짜볼(10조각)','C300',5100,'겉은 바삭~ 속은 부드러운 크림치즈가 쏘옥, 크리미모짜볼!','P1040.PNG','P1039',1);
-INSERT INTO PRODUCT VALUES('P1041','코코넛쉬림프(3조각)','C300',4200,'바삭한 코코넛 옷을 입은 탱글한 통새우와 새콤달콤 칠리소스','P1041.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1042','코코넛쉬림프(6조각)','C300',7200,'바삭한 코코넛 옷을 입은 탱글한 통새우와 새콤달콤 칠리소스','P1042.PNG','P1041',1);
-INSERT INTO PRODUCT VALUES('P1043','쉐이킹프라이 매콤치즈','C300',2700,'깊은 풍미가 느껴지는 시즈닝으로 취향 저격!','P1043.PNG',NULL,1);
-INSERT INTO PRODUCT VALUES('P1044','쉐이킹프라이 스윗어니언','C300',2700,'깊은 풍미가 느껴지는 시즈닝으로 취향 저격!','P1044.PNG','P1043',1);
-INSERT INTO PRODUCT VALUES('P1045','쉐이킹프라이 구운갈릭','C300',2700,'깊은 풍미가 느껴지는 시즈닝으로 취향 저격!','P1045.PNG','P1043',1);
+INSERT INTO PRODUCT VALUES('P1040','크리미모짜볼(10조각)','C300',5100,'겉은 바삭~ 속은 부드러운 크림치즈가 쏘옥, 크리미모짜볼!','P1040.PNG','P1039',0);
+INSERT INTO PRODUCT VALUES('P1041','코코넛쉬림프(3조각)','C300',4200,'바삭한 코코넛 옷을 입은 탱글한 통새우와 새콤달콤 칠리소스','P1041.PNG',NULL,0);
+INSERT INTO PRODUCT VALUES('P1042','코코넛쉬림프(6조각)','C300',7200,'바삭한 코코넛 옷을 입은 탱글한 통새우와 새콤달콤 칠리소스','P1042.PNG','P1041',0);
+--INSERT INTO PRODUCT VALUES('P1043','쉐이킹프라이 매콤치즈','C300',2700,'깊은 풍미가 느껴지는 시즈닝으로 취향 저격!','P1043.PNG',NULL,1);
+--INSERT INTO PRODUCT VALUES('P1044','쉐이킹프라이 스윗어니언','C300',2700,'깊은 풍미가 느껴지는 시즈닝으로 취향 저격!','P1044.PNG','P1043',1);
+--INSERT INTO PRODUCT VALUES('P1045','쉐이킹프라이 구운갈릭','C300',2700,'깊은 풍미가 느껴지는 시즈닝으로 취향 저격!','P1045.PNG','P1043',1);
 
 INSERT INTO PRODUCT VALUES('P1046','컵 아이스크림','C400',900,'천연바닐라빈과 퓨어버터 첨가로 더욱 고급스러운 프리미엄 밀크 아이스크림','P1046.PNG',NULL,1);
 INSERT INTO PRODUCT VALUES('P1047','콘 아이스크림','C400',900,'천연바닐라빈과 퓨어버터 첨가로 더욱 고급스러운 프리미엄 밀크 아이스크림','P1047.PNG',NULL,1);
@@ -119,29 +119,14 @@ INSERT INTO BUNDLE VALUES('S1001','와퍼 세트','와퍼+프렌치프라이+콜라',9300,'S10
 INSERT INTO BUNDLE VALUES('S1002','치즈 와퍼 세트','치즈 와퍼+프렌치프라이+콜라',9900,'S1002.PNG','P1002');
 INSERT INTO BUNDLE VALUES('S1003','불고기 와퍼 세트','불고기 와퍼+프렌치프라이+콜라',9300,'S1003.PNG','P1003');
 INSERT INTO BUNDLE VALUES('S1004','베이컨 치즈 와퍼 세트','베이컨 치즈 와퍼+프렌치프라이+콜라',10100,'S1004.PNG','P1004');
-INSERT INTO BUNDLE VALUES('S1005','직화 소불고기 버거 세트','직화 소불고기 버거+프렌치프라이+콜라',6100,'S1005.PNG','P1006');
-INSERT INTO BUNDLE VALUES('S1006','고추장 소불고기 버거 세트','고추장 소불고기 버거+프렌치프라이+콜라',6100,'S1006.PNG','P1006');
+--INSERT INTO BUNDLE VALUES('S1005','직화 소불고기 버거 세트','직화 소불고기 버거+프렌치프라이+콜라',6100,'S1005.PNG','P1006');
+--INSERT INTO BUNDLE VALUES('S1006','고추장 소불고기 버거 세트','고추장 소불고기 버거+프렌치프라이+콜라',6100,'S1006.PNG','P1006');
 INSERT INTO BUNDLE VALUES('S1007','통새우 와퍼 세트','통새우 와퍼+프렌치프라이+콜라',10100,'S1007.PNG','P1007');
 INSERT INTO BUNDLE VALUES('S1008','콰트로치즈 와퍼 세트','콰트로치즈 와퍼+프렌치프라이+콜라',10100,'S1008.PNG','P1009');
 INSERT INTO BUNDLE VALUES('S1009','몬스터 와퍼 세트','몬스터 와퍼+프렌치프라이+콜라',10700,'S1009.PNG','P1009');
 INSERT INTO BUNDLE VALUES('S1010','기네스 와퍼 세트','기네스 와퍼+프렌치프라이+콜라',10700,'S1010.PNG','P1010');
-INSERT INTO BUNDLE VALUES('S1011','기네스 머쉬룸 와퍼 세트','기네스 머쉬룸 와퍼+프렌치프라이+콜라',11100,'S1011.PNG','P1011');
+--INSERT INTO BUNDLE VALUES('S1011','기네스 머쉬룸 와퍼 세트','기네스 머쉬룸 와퍼+프렌치프라이+콜라',11100,'S1011.PNG','P1011');
 INSERT INTO BUNDLE VALUES('S1012','스태커3 와퍼 세트','스태커3 와퍼+프렌치프라이+콜라',13900,'S1012.PNG','P1012');
 INSERT INTO BUNDLE VALUES('S1013','스태커4 와퍼 세트','스태커4 와퍼+프렌치프라이+콜라',15900,'S1013.PNG','P1013');
 
 COMMIT;
-
-SELECT * FROM category;
-SELECT * FROM product;
-SELECT * FROM bundle;
-SELECT * FROM orders;
-SELECT * FROM orders_details;
-
- 
- insert into orders(ORDERS_CODE,ORDERS_PRICE,ORDERS_DATE) values(ORDERS_SEQ.nextval,5200, default);
-insert into orders(ORDERS_CODE,ORDERS_PRICE,ORDERS_DATE) values(ORDERS_SEQ.nextval,7600, default);
-
-insert into ORDERS_DETAILS(ORDERS_DETAILS_CODE,ORDERS_CODE,PRODUCT_CODE,PRODUCT_CODE2,BUNDLE_CODE,ORDERS_DETAILS_QTY) values(ORDERS_DETAILS_SEQ.nextval,ORDERS_SEQ.currval, 'P1006', NULL,NULL,1);
-insert into ORDERS_DETAILS(ORDERS_DETAILS_CODE,ORDERS_CODE,PRODUCT_CODE,PRODUCT_CODE2,BUNDLE_CODE,ORDERS_DETAILS_QTY) values(ORDERS_DETAILS_SEQ.nextval,ORDERS_SEQ.currval, 'P1019', 'P1034','S1004',2);
-
-select sum(orders_details.orders_details_qty) 수량, sum(orders.orders_price) 매출 from orders natural join orders_details  where  to_char(ORDERS_DATE, 'yy/mm/dd' ) = '21/08/30';
