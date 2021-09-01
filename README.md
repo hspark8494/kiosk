@@ -10,4 +10,11 @@
 
 <!-- Image -->
 ## 시연이미지 
-<img width="378" alt="시연이미지1" src="https://user-images.githubusercontent.com/76465997/131600451-bbec8e94-add3-481f-bb07-f648cd7fc22b.png">
+
+#### 시작화면 
+<img width="300" alt="시연이미지1" src="https://user-images.githubusercontent.com/76465997/131600451-bbec8e94-add3-481f-bb07-f648cd7fc22b.png">
+#### 메뉴선택 
+<img width="300" alt="시연이미지2" src="https://user-images.githubusercontent.com/76465997/131600596-14051309-1010-471e-8cd5-fb9eb16a95af.png">
+#### 결제정보
+<img width="300" alt="시연이미지3" src="https://user-images.githubusercontent.com/76465997/131600603-9e267559-31b2-47c3-a893-dd7911dfaae9.png">
+
