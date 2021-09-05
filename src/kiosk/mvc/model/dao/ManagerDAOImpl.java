@@ -188,6 +188,8 @@ public class ManagerDAOImpl implements ManagerDAO {
 					List<OrdersDetails> ordersDetailsList = new ArrayList<OrdersDetails>();
 					OrdersDetails ordersDetails = new OrdersDetails(rs.getString(4), ordersCode, rs.getString(5),rs.getString(6), rs.getString(7), rs.getInt(8));
 					
+					ordersDetailsList.add(ordersDetails);
+					
 					orders.setOrdersDetailsList(ordersDetailsList);
 					tempOrdersCode = ordersCode;
 					
